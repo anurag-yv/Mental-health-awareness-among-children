@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Health Assessment</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body {
+            background: linear-gradient(45deg, #ff9a8b, #ff6a88, #d84f86);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(45deg, #ff9a8b, #ff6a88, #d84f86);
+            padding: 0 20px;
+        }
+
+        .question-container {
+            background: #fff;
+            border-radius: 1.2rem;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+            padding: 30px;
+            text-align: center;
+            animation: fadeIn 1.5s ease;
+        }
+
+        .question-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 2rem;
+            line-height: 1.4;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .option-button {
+            background-color: #f8f8f8;
+            color: #333;
+            font-size: 1.1rem;
+            font-weight: 500;
+            border: 2px solid #ff6a88;
+            border-radius: 1rem;
+            padding: 15px 25px;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            cursor: pointer;
+            width: 80%;
+            margin: 0 auto;
+        }
+
+        .option-button:hover {
+            background-color: #ff6a88;
+            color: white;
+            transform: translateY(-5px);
+        }
+
+        .option-button.selected {
+            background-color: #ff6a88;
+            color: white;
+            transform: translateY(-5px);
+        }
+
+        .emoji {
+            font-size: 2rem;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            width: 100%;
+        }
+
+        .prev-btn, .next-btn {
+            padding: 10px 25px;
+            background-color: #ff6a88;
+            color: white;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .prev-btn:hover, .next-btn:hover {
+            background-color: #d84f86;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .error-message {
+            color: red;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="question-container">
+            <h2 class="question-text">Mental Health Assessment 🧠</h2>
+            <form id="assessmentForm" action="http://localhost/Project%20Team%20Weaver/project/php/quiz.php" method="POST">
+                <div id="questionContent"></div>
+
+                <!-- Hidden inputs for each answer -->
+                <input type="hidden" id="q1" name="q1">
+                <input type="hidden" id="q2" name="q2">
+                <input type="hidden" id="q3" name="q3">
+                <input type="hidden" id="q4" name="q4">
+                <input type="hidden" id="q5" name="q5">
+                <input type="hidden" id="q6" name="q6">
+                <input type="hidden" id="q7" name="q7">
+                <input type="hidden" id="q8" name="q8">
+                <input type="hidden" id="q9" name="q9">
+                <input type="hidden" id="q10" name="q10">
+
+                <div class="btn-container">
+                    <button type="button" id="prevBtn" class="prev-btn hidden">Previous 👈</button>
+                    <button type="button" id="nextBtn" class="next-btn">Next Question 👉</button>
+                    <button type="submit" id="submitBtn" class="next-btn hidden">Submit 🎉</button>
+                </div>
+
+                <!-- Error message will appear here if no answer is selected -->
+                <div id="errorMessage" class="error-message hidden">Please select an answer before proceeding!</div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "How is your day today? 😊",
+                options: ["Bad 😞", "Okay 😐", "Good 🙂", "Great 😄"]
+            },
+            {
+                question: "How often do you feel happy during the day? 😄",
+                options: ["Never 😔", "Sometimes 🙂", "Often 😊", "Always 🥳"]
+            },
+            {
+                question: "Do you feel sad without knowing why? 😟",
+                options: ["Never 😎", "Sometimes 😕", "Often 😔", "Always 😢"]
+            },
+            {
+                question: "Do you worry about school, friends, or home life? 😓",
+                options: ["Never 😌", "Sometimes 😯", "Often 😟", "Always 😞"]
+            },
+            {
+                question: "Do you have trouble sleeping because of worries? 🛌",
+                options: ["Never 😴", "Sometimes 😑", "Often 😧", "Always 😵"]
+            },
+            {
+                question: "Do you enjoy spending time with friends and family? 👫",
+                options: ["Never 😞", "Sometimes 😐", "Often 😊", "Always 🥰"]
+            },
+            {
+                question: "Do you feel lonely when with other children? 😔",
+                options: ["Never 😇", "Sometimes 😢", "Often 😟", "Always 😞"]
+            },
+            {
+                question: "Do you feel tired most of the time? 😴",
+                options: ["Never 😃", "Sometimes 😴", "Often 😩", "Always 😞"]
+            },
+            {
+                question: "Do you get frustrated easily? 😡",
+                options: ["Never 😃", "Sometimes 😕", "Often 😡", "Always 😤"]
+            },
+            {
+                question: "When upset, do you have someone to talk to? 💬",
+                options: ["Never 😞", "Sometimes 😕", "Often 😊", "Always 🗣️"]
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let selectedOptionIndex = -1;
+
+        const questionContent = document.getElementById('questionContent');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const submitBtn = document.getElementById('submitBtn');
+        const errorMessage = document.getElementById('errorMessage');
+
+        function displayQuestion() {
+            const question = questions[currentQuestionIndex];
+            questionContent.innerHTML = `
+                <div class="question-text">${question.question}</div>
+                <div class="options">
+                    ${question.options.map((option, index) => `
+                        <button type="button" class="option-button" onclick="selectAnswer(${index})">${option}</button>
+                    `).join('')}
+                </div>
+            `;
+
+            // Update the button visibility based on the question index
+            prevBtn.classList.toggle('hidden', currentQuestionIndex === 0);
+            nextBtn.classList.toggle('hidden', currentQuestionIndex === questions.length - 1);
+            submitBtn.classList.toggle('hidden', currentQuestionIndex !== questions.length - 1);
+            nextBtn.textContent = currentQuestionIndex === questions.length - 1 ? 'Submit 🎉' : 'Next Question 👉';
+
+            // If there's a selected answer, highlight the selected button
+            const optionButtons = document.querySelectorAll('.option-button');
+            optionButtons.forEach((btn, index) => {
+                if (index === selectedOptionIndex) {
+                    btn.classList.add('selected');
+                } else {
+                    btn.classList.remove('selected');
+                }
+            });
+        }
+
+        function selectAnswer(answerIndex) {
+            selectedOptionIndex = answerIndex;
+            document.getElementById(`q${currentQuestionIndex + 1}`).value = answerIndex + 1;
+            errorMessage.classList.add('hidden'); // Hide the error message when an answer is selected
+            displayQuestion();
+        }
+
+        function validateAnswer() {
+            if (selectedOptionIndex === -1) {
+                errorMessage.classList.remove('hidden');
+                return false; // Prevent moving to the next question
+            }
+            return true;
+        }
+
+        prevBtn.addEventListener('click', () => {
+            currentQuestionIndex--;
+            selectedOptionIndex = -1; // Reset selection when going back
+            displayQuestion();
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (validateAnswer()) {
+                if (currentQuestionIndex === questions.length - 1) {
+                    document.forms[0].submit();
+                } else {
+                    currentQuestionIndex++;
+                    selectedOptionIndex = -1; // Reset selection when moving to next question
+                    displayQuestion();
+                }
+            }
+        });
+
+        displayQuestion();
+    </script>
+</body>
+</html>
