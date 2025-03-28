@@ -3,23 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy Policy</title>
+    <title>Privacy Policy - MindHorizon</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 text-gray-900">
-    <header class="bg-blue-600 text-white py-4 shadow-md">
-        <div class="container mx-auto text-center text-2xl font-semibold">Privacy Policy</div>
+<body id="pageBody" class="bg-gradient-to-br from-teal-200 to-teal-500 text-gray-800 transition-all duration-500 min-h-screen flex flex-col">
+
+    <!-- Dark Mode Toggle Button -->
+    <button id="darkModeToggle" class="fixed bottom-6 right-6 w-14 h-14 flex items-center justify-center bg-white rounded-full shadow-lg text-2xl transition-all duration-300 hover:scale-110">
+        🌙
+    </button>
+
+    <!-- Header -->
+    <header class="text-center text-4xl font-bold py-6 bg-white/30 backdrop-blur-md shadow-md text-gray-900">
+        MindHorizon - Privacy Policy
     </header>
-    
-    <div class="container mx-auto px-4 py-8 max-w-4xl">
-        <section class="bg-white p-6 rounded-lg shadow-md">
-            <h2 class="text-xl font-bold mb-4">Privacy Policy</h2>
-            <p class="mb-2">Your privacy is important to us. We collect and use your data in accordance with applicable laws.</p>
-            <h3 class="text-lg font-semibold mt-4">Information We Collect</h3>
-            <p class="mb-2">We collect personal data such as name, email, and browsing activity to improve our services.</p>
-            <h3 class="text-lg font-semibold mt-4">How We Use Your Information</h3>
-            <p class="mb-2">Your data is used for service improvement, security, and user experience enhancement.</p>
-        </section>
-    </div>
+
+    <!-- Content Section -->
+    <section class="max-w-5xl mx-auto px-6 py-12 text-lg leading-relaxed flex-grow">
+        <h2 class="text-3xl font-bold mb-6 text-gray-900">Privacy Policy</h2>
+        <p class="mb-4 text-gray-700">Your privacy is important to us. This Privacy Policy outlines how MindHorizon collects, uses, and protects your data.</p>
+
+        <h3 class="text-2xl font-semibold mt-8 text-teal-800">1. Respect & Responsibility</h3>
+        <p class="mb-4 text-gray-700">Users must engage respectfully, ensuring a positive space for everyone. Any form of harassment, discrimination, or misuse of the platform is strictly prohibited.</p>
+        
+        <h3 class="text-2xl font-semibold mt-8 text-teal-800">2. Data Privacy & Protection</h3>
+        <p class="mb-4 text-gray-700">Your data is handled with strict confidentiality. We use industry-standard encryption to protect personal information and ensure secure interactions.</p>
+
+        <h3 class="text-2xl font-semibold mt-8 text-teal-800">3. Mental Health Advisory</h3>
+        <p class="mb-4 text-gray-700">MindHorizon provides mental health tools and guidance but is <strong>not a replacement for professional medical advice</strong>. If you experience severe distress, please seek help from a licensed therapist or medical professional.</p>
+        
+        <h3 class="text-2xl font-semibold mt-8 text-teal-800">4. Data Collection & Usage</h3>
+        <p class="mb-4 text-gray-700">We collect minimal user data required to improve our services. Data is never sold or shared without user consent.</p>
+
+        <h3 class="text-2xl font-semibold mt-8 text-teal-800">5. User Accounts & Security</h3>
+        <p class="mb-4 text-gray-700">Users are responsible for maintaining the confidentiality of their accounts. Any unauthorized access or breach must be reported immediately.</p>
+
+        <h3 class="text-2xl font-semibold mt-8 text-teal-800">6. Third-Party Services</h3>
+        <p class="mb-4 text-gray-700">We may use third-party tools to enhance the platform. These services adhere to their privacy policies, and we ensure compliance with security standards.</p>
+
+        <h3 class="text-2xl font-semibold mt-8 text-teal-800">7. Amendments & Updates</h3>
+        <p class="mb-4 text-gray-700">MindHorizon reserves the right to update this policy periodically. Continued use of the platform after changes means you accept the revised terms.</p>
+
+        <h3 class="text-2xl font-semibold mt-8 text-teal-800">8. Contact Us</h3>
+        <p class="mb-4 text-gray-700">For any inquiries regarding this policy, please contact our support team at <a href="mailto:support@mindhorizon.com" class="text-blue-700 hover:underline">support@mindhorizon.com</a>.</p>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white text-center py-6 mt-auto">
+        <p class="text-lg">&copy; 2025 MindHorizon. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        const toggleButton = document.getElementById("darkModeToggle");
+        const pageBody = document.getElementById("pageBody");
+
+        toggleButton.addEventListener("click", () => {
+            if (pageBody.classList.contains("from-teal-200")) {
+                // Dark Mode
+                pageBody.classList.replace("from-teal-200", "from-gray-900");
+                pageBody.classList.replace("to-teal-500", "to-gray-800");
+                pageBody.classList.replace("text-gray-800", "text-gray-200");
+
+                document.querySelectorAll("h2, h3").forEach(el => el.classList.replace("text-gray-900", "text-teal-300"));
+                document.querySelectorAll("p").forEach(el => el.classList.replace("text-gray-700", "text-gray-300"));
+                
+                toggleButton.textContent = "☀️"; 
+            } else {
+                // Light Mode
+                pageBody.classList.replace("from-gray-900", "from-teal-200");
+                pageBody.classList.replace("to-gray-800", "to-teal-500");
+                pageBody.classList.replace("text-gray-200", "text-gray-800");
+
+                document.querySelectorAll("h2, h3").forEach(el => el.classList.replace("text-teal-300", "text-gray-900"));
+                document.querySelectorAll("p").forEach(el => el.classList.replace("text-gray-300", "text-gray-700"));
+                
+                toggleButton.textContent = "🌙"; 
+            }
+        });
+    </script>
+
 </body>
 </html>
