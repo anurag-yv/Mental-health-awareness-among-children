@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindHorizon - Terms of Service</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body id="pageBody" class="bg-gradient-to-br from-teal-200 to-teal-500 text-gray-800 transition-all duration-500 min-h-screen flex flex-col">
+
+    <!-- Dark Mode Toggle Button -->
+    <button id="darkModeToggle" class="fixed bottom-6 right-6 w-14 h-14 flex items-center justify-center bg-white rounded-full shadow-lg text-2xl transition-all duration-300 hover:scale-110">
+        🌙
+    </button>
+
+    <!-- Header -->
+    <header class="text-center text-4xl font-bold py-6 bg-white/30 backdrop-blur-md shadow-md text-gray-900">
+        MindHorizon - Terms of Service
+    </header>
+
+    <!-- Content Section -->
+    <section class="max-w-5xl mx-auto px-6 py-12 text-lg leading-relaxed flex-grow">
+        <h2 class="text-3xl font-bold mb-6 text-gray-900">Welcome to MindHorizon</h2>
+        <p class="mb-4 text-gray-700">MindHorizon is dedicated to mental well-being. By using our services, you agree to follow these terms to maintain a safe and supportive environment.</p>
+
+        <h3 class="text-2xl font-semibold mt-8 text-teal-800">1. Respect & Responsibility</h3>
+        <p class="mb-4 text-gray-700">Users must engage respectfully, ensuring a positive space for everyone. Any form of harassment, discrimination, or misuse of the platform is strictly prohibited.</p>
+        
+        <h3 class="text-2xl font-semibold mt-8 text-teal-800">2. Data Privacy & Protection</h3>
+        <p class="mb-4 text-gray-700">Your data is handled with strict confidentiality. We use industry-standard encryption to protect personal information and ensure secure interactions.</p>
+
+        <h3 class="text-2xl font-semibold mt-8 text-teal-800">3. Mental Health Advisory</h3>
+        <p class="mb-4 text-gray-700">MindHorizon provides mental health tools and guidance but is **not a replacement for professional medical advice**. If you experience severe distress, please seek help from a licensed therapist or medical professional.</p>
+        
+        <h3 class="text-2xl font-semibold mt-8 text-teal-800">4. Service Limitations</h3>
+        <p class="mb-4 text-gray-700">While we strive for accuracy, MindHorizon does not guarantee uninterrupted service. Technical issues, maintenance, or third-party service disruptions may occur.</p>
+
+        <h3 class="text-2xl font-semibold mt-8 text-teal-800">5. User Accounts & Security</h3>
+        <p class="mb-4 text-gray-700">Users are responsible for maintaining the confidentiality of their accounts. Any unauthorized access or breach must be reported immediately.</p>
+
+        <!-- Prohibited Activities Section -->
+        <h3 class="text-2xl font-semibold mt-8 text-teal-800">6. Prohibited Activities</h3>
+        <ul id="prohibitedList" class="list-disc list-inside mb-4 text-gray-700">
+            <li>Spreading Misinformation: Do not share false or misleading health-related information.</li>
+            <li>Harassment & Hate Speech: Any form of bullying, threats, hate speech, or discrimination is not allowed.</li>
+            <li>Unauthorized Access: Attempting to hack, bypass security, or access restricted data is strictly prohibited.</li>
+            <li>Automated Bots & Scraping: Do not use bots to collect data, spam, or manipulate platform functionality.</li>
+            <li>Inappropriate Content: Any graphic, violent, or explicit content will lead to immediate account suspension.</li>
+            <li>Impersonation: Do not pretend to be someone else or falsify information.</li>
+            <li>Disruptive Behavior: Actions that negatively impact user experience or disrupt community peace are not tolerated.</li>
+            <li>Illegal Activities: Any involvement in fraud, scams, or illegal transactions using the platform is prohibited.</li>
+        </ul>
+
+        <h3 class="text-2xl font-semibold mt-8 text-teal-800">7. Amendments & Updates</h3>
+        <p class="mb-4 text-gray-700">MindHorizon reserves the right to update these terms periodically. Continued use of the platform after changes means you accept the revised terms.</p>
+
+        <h3 class="text-2xl font-semibold mt-8 text-teal-800">8. Contact Us</h3>
+        <p class="mb-4 text-gray-700">For any inquiries regarding these terms, please contact our support team at <a href="mailto:support@mindhorizon.com" class="text-blue-700 hover:underline">support@mindhorizon.com</a>.</p>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white text-center py-6 mt-auto">
+        <p class="text-lg">&copy; 2025 MindHorizon. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        const toggleButton = document.getElementById("darkModeToggle");
+        const pageBody = document.getElementById("pageBody");
+
+        toggleButton.addEventListener("click", () => {
+            if (pageBody.classList.contains("from-teal-200")) {
+                // Dark Mode
+                pageBody.classList.replace("from-teal-200", "from-gray-900");
+                pageBody.classList.replace("to-teal-500", "to-gray-800");
+                pageBody.classList.replace("text-gray-800", "text-gray-200");
+
+                document.querySelectorAll("h2, h3").forEach(el => el.classList.replace("text-gray-900", "text-teal-300"));
+                document.querySelectorAll("p, ul").forEach(el => el.classList.replace("text-gray-700", "text-gray-300"));
+                
+                toggleButton.textContent = "☀️"; 
+            } else {
+                // Light Mode
+                pageBody.classList.replace("from-gray-900", "from-teal-200");
+                pageBody.classList.replace("to-gray-800", "to-teal-500");
+                pageBody.classList.replace("text-gray-200", "text-gray-800");
+
+                document.querySelectorAll("h2, h3").forEach(el => el.classList.replace("text-teal-300", "text-gray-900"));
+                document.querySelectorAll("p, ul").forEach(el => el.classList.replace("text-gray-300", "text-gray-700"));
+                
+                toggleButton.textContent = "🌙"; 
+            }
+        });
+    </script>
+
+</body>
+</html>

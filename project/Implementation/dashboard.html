@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindHorizon - Terms of Service</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Light Mode Gradient */
+        body.light-mode {
+            background: linear-gradient(135deg, #A1C4FD, #C2E9FB);
+            color: #333;
+            transition: background 0.5s ease-in-out;
+        }
+
+        /* Dark Mode Gradient */
+        body.dark-mode {
+            background: linear-gradient(135deg, #232526, #414345);
+            color: #fff;
+            transition: background 0.5s ease-in-out;
+        }
+
+        /* Floating Dark Mode Toggle */
+        .toggle-theme {
+            position: fixed;
+            top: 15px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: background 0.3s ease-in-out;
+        }
+
+        .dark-mode .toggle-theme {
+            background: rgba(0, 0, 0, 0.7);
+        }
+    </style>
+</head>
+<body class="light-mode">
+
+    <!-- Dark Mode Toggle Button -->
+    <div class="toggle-theme" onclick="toggleDarkMode()">🌙</div>
+
+    <!-- Header -->
+    <header class="py-6 text-center text-3xl font-bold shadow-md bg-opacity-80">
+        MindHorizon - Terms of Service
+    </header>
+
+    <!-- Content Section -->
+    <section class="px-6 py-12 max-w-5xl mx-auto">
+        <h2 class="text-2xl font-bold mb-6">Welcome to MindHorizon</h2>
+        <p class="mb-4">By using MindHorizon, you agree to follow these terms to ensure a safe and supportive environment.</p>
+
+        <h3 class="text-xl font-semibold mt-6">1. User Responsibilities</h3>
+        <p class="mb-4">Users must engage respectfully and avoid any misuse of the platform.</p>
+
+        <h3 class="text-xl font-semibold mt-6">2. Data Privacy</h3>
+        <p class="mb-4">We prioritize user privacy and secure all collected data.</p>
+
+        <h3 class="text-xl font-semibold mt-6">3. Mental Health Advisory</h3>
+        <p class="mb-4">MindHorizon provides support but does not replace professional medical help.</p>
+
+        <h3 class="text-xl font-semibold mt-6">4. Service Limitations</h3>
+        <p class="mb-4">We strive for accuracy but do not guarantee uninterrupted service.</p>
+    </section>
+
+    <script>
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+        }
+    </script>
+
+</body>
+</html>
