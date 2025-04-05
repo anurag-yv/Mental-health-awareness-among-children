@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact Us | MindHorizon</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script> <!-- Icon Pack -->
+  <style>
+    /* Colorful animated gradient background */
+    body {
+      background: linear-gradient(-45deg, #84fab0, #1e9269, #fcb69f, #a18cd1);
+      background-size: 400% 400%;
+      animation: gradientBG 12s ease infinite;
+    }
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+  </style>
+</head>
+<body class="min-h-screen text-slate-800 font-sans backdrop-blur-lg">
+
+  <!-- Header -->
+  <header class="bg-white bg-opacity-40 backdrop-blur-md py-8 shadow-lg">
+    <div class="max-w-6xl mx-auto px-6 text-center">
+      <h1 class="text-5xl font-extrabold text-white drop-shadow-lg">Get in Touch</h1>
+      <p class="text-lg mt-2 text-white/90">We're here to support your journey toward better mental health.</p>
+    </div>
+  </header>
+
+  <!-- Contact Section -->
+  <main class="max-w-6xl mx-auto px-6 py-12">
+    <div class="grid md:grid-cols-2 gap-12 items-start">
+
+      <!-- Contact Info Cards -->
+      <div class="space-y-6">
+        <div class="bg-white bg-opacity-60 backdrop-blur-md rounded-2xl shadow-2xl p-6 hover:scale-[1.02] transform transition duration-300">
+          <h2 class="text-2xl font-bold text-emerald-700 mb-3 flex items-center gap-2">
+            <i class="ph ph-phone-call text-xl text-emerald-500"></i> Contact Info
+          </h2>
+          <p><strong>📍 Address:</strong> 123 Serenity Lane, Calmville, India</p>
+          <p><strong>📞 Phone:</strong> +91 98765 43210</p>
+          <p><strong>📧 Email:</strong> hello@mindhorizon.org</p>
+        </div>
+
+        <div class="bg-white bg-opacity-60 backdrop-blur-md rounded-2xl shadow-2xl p-6 hover:scale-[1.02] transform transition duration-300">
+          <h2 class="text-2xl font-bold text-cyan-700 mb-3 flex items-center gap-2">
+            <i class="ph ph-clock text-xl text-cyan-500"></i> Office Hours
+          </h2>
+          <p>🕒 Monday – Friday: 10 AM – 6 PM</p>
+          <p>🌱 Weekend Support: Urgent queries only</p>
+        </div>
+
+        <div class="bg-white bg-opacity-60 backdrop-blur-md rounded-2xl shadow-2xl p-6 hover:scale-[1.02] transform transition duration-300">
+          <h2 class="text-2xl font-bold text-pink-600 mb-3 flex items-center gap-2">
+            <i class="ph ph-heart text-xl text-pink-500"></i> Emotional Support
+          </h2>
+          <p>Whether you’re struggling or simply need someone to talk to, we’re listening — always.</p>
+        </div>
+      </div>
+
+      <!-- Contact Form -->
+      <div class="bg-white bg-opacity-70 backdrop-blur-md rounded-2xl shadow-2xl p-8">
+        <h2 class="text-3xl font-bold text-indigo-800 mb-6">Send a Message 💌</h2>
+        <form action="contact.php" method="POST" class="space-y-5">
+          <div>
+            <label for="name" class="block text-sm font-medium mb-1 text-indigo-900">Your Name</label>
+            <input type="text" id="name" name="name" required class="w-full border border-indigo-200 px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-300 bg-white/70">
+          </div>
+          <div>
+            <label for="email" class="block text-sm font-medium mb-1 text-indigo-900">Email Address</label>
+            <input type="email" id="email" name="email" required class="w-full border border-indigo-200 px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-300 bg-white/70">
+          </div>
+          <div>
+            <label for="subject" class="block text-sm font-medium mb-1 text-indigo-900">Subject</label>
+            <input type="text" id="subject" name="subject" class="w-full border border-indigo-200 px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-300 bg-white/70">
+          </div>
+          <div>
+            <label for="message" class="block text-sm font-medium mb-1 text-indigo-900">Message</label>
+            <textarea id="message" name="message" rows="5" required class="w-full border border-indigo-200 px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-300 bg-white/70"></textarea>
+          </div>
+          <button type="submit" class="w-full bg-indigo-500 text-white py-3 rounded-xl hover:bg-indigo-600 transition shadow-md text-lg font-semibold">
+            Send Message 🚀
+          </button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="text-center text-sm text-white/80 py-8">
+    &copy; 2025 MindHorizon • Made with 💙 for mental wellness
+  </footer>
+
+</body>
+</html>
