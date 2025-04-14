@@ -1,117 +1,634 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MindBloom - Nurturing Young Minds</title>
-    <script src="https://cdn.tailwindcss.com"></script>      
-    <!-- Font Awesome for social media icons -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MindHorizon - Nurturing Young Minds</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+  <style>
+    /* General Styling */
+    body {
+      background: #f0f7f4;
+      font-family: 'Poppins', sans-serif;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* Slider Styling */
+    #slider {
+      position: relative;
+      width: 100%;
+      height: 400px;
+      overflow: hidden;
+      z-index: 0;
+      border-bottom: 8px solid #10b981;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    @media (min-width: 640px) { #slider { height: 450px; } }
+    @media (min-width: 768px) { #slider { height: 500px; } }
+    @media (min-width: 1024px) { #slider { height: 600px; } }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 1.5s ease-in-out, transform 2s ease-in-out;
+      transform: scale(1.05);
+    }
+
+    .slide.active {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      border-radius: 0 0 40px 40px;
+      filter: brightness(0.95);
+    }
+
+    .slide-text {
+      position: absolute;
+      top: 50%;
+      left: 40px;
+      transform: translateY(-50%);
+      color: #fff;
+      font-size: 1.90rem;
+      font-weight: 800;
+      text-align: left;
+      text-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
+      padding: 1.75rem;
+      max-width: 50%;
+      opacity: 0;
+      animation: slideIn 1.5s ease-out 0.5s forwards;
+      line-height: 1.3;
+      /* background: linear-gradient(135deg, rgba(16, 185, 129, 0.3), rgba(52, 211, 153, 0.2)); */
+      border-radius: 20px;
+    }
+    @keyframes slideIn {
+      0% { opacity: 0; transform: translateY(-50%) translateX(-60px); }
+      100% { opacity: 1; transform: translateY(-50%) translateX(0); }
+    }
+
+    @media (max-width: 768px) {
+      .slide-text { font-size: 1.75rem; max-width: 55%; }
+    }
+
+    @media (max-width: 640px) {
+      .slide-text { font-size: 1.25rem; max-width: 60%; padding: 1rem; }
+    }
+
+    .slider-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.2); /* Transparent background */
+      color: #fff;
+      border: 2px solid rgba(255, 255, 255, 0.5);
+      padding: 12px 16px;
+      cursor: pointer;
+      font-size: 1.75rem;
+      z-index: 10;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(5px); /* Adds a frosted glass effect */
+    }
+
+    .slider-nav:hover {
+      background: rgba(52, 211, 153, 0.4);
+      border-color: #34d399;
+      transform: translateY(-50%) scale(1.1);
+    }
+
+    .slider-nav.left { left: 40px; }
+    .slider-nav.right { right: 40px; }
+
+    .slider-dots {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 12px;
+      z-index: 10;
+    }
+
+    .slider-dots button {
+      width: 14px;
+      height: 14px;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 50%;
+      border: 2px solid #10b981;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .slider-dots button.active {
+      background: #34d399;
+      transform: scale(1.3);
+    }
+
+    /* Navbar Styling */
+    .nav-button {
+      color: white;
+      padding: 10px 24px;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+      font-weight: 600;
+      background: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-button:hover {
+      background: #34d399;
+      color: #fff;
+      transform: scale(1.1);
+    }
+
+    /* Content Section */
+    .content-section {
+      padding: 5rem 2rem;
+      margin-top: -80px;
+      position: relative;
+      z-index: 1;
+      min-height: 600px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: #fff; /* Clean white background */
+    }
+
+    .nurturing-container {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .nurturing-content h2 {
+      color: #10b981;
+      font-size: 3rem;
+      font-weight: 800;
+      margin-bottom: 1.5rem;
+      position: relative;
+      animation: fadeInUp 1s ease-out;
+    }
+
+    .nurturing-content h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 180px;
+      height: 4px; /* Reduced thickness */
+      background: linear-gradient(to right, #10b981, #34d399);
+      border-radius: 2px;
+    }
+
+    .nurturing-content p {
+      font-size: 1.5rem;
+      color: #2d3748;
+      max-width: 700px;
+      margin: 2rem 0;
+      animation: fadeInUp 1.2s ease-out;
+    }
+
+    .nurturing-content button {
+      margin-top: 2.5rem;
+      padding: 1rem 3rem;
+      font-size: 1.25rem;
+      animation: fadeInUp 1.4s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .content-img {
+      max-width: 100%;
+      width: 100%;
+      max-width: 450px;
+      margin-top: 3rem;
+      border-radius: 20px; /* Subtle rounding */
+      transition: transform 0.4s ease;
+    }
+
+    .content-img:hover {
+      transform: scale(1.05);
+    }
+
+    /* Extra Sections */
+    .extra-section {
+      background: #f9fafb;
+      padding: 6rem 2rem;
+    }
+
+    .extra-card {
+      background: linear-gradient(135deg, #fff, #f0f7f4);
+      border-radius: 25px;
+      padding: 3rem;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
+      border-left: 6px solid #10b981;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .extra-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(16, 185, 129, 0.1), transparent);
+      transition: all 0.5s ease;
+      z-index: 0;
+    }
+
+    .extra-card:hover::before {
+      top: 0;
+      left: 0;
+    }
+
+    .extra-card:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 15px 45px rgba(0, 0, 0, 0.12);
+    }
+
+    .extra-card-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .extra-icon {
+      font-size: 3.5rem;
+      color: #10b981;
+      margin-bottom: 2rem;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+
+    .testimonial-section {
+      background: #fff;
+      padding: 6rem 2rem;
+    }
+
+    .testimonial-card {
+      background: linear-gradient(135deg, #f0f7f4, #fff);
+      border-radius: 25px;
+      padding: 3rem;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
+      border-right: 6px solid #34d399;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .testimonial-card::before {
+      content: '';
+      position: absolute;
+      bottom: -50%;
+      right: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(52, 211, 153, 0.1), transparent);
+      transition: all 0.5s ease;
+      z-index: 0;
+    }
+
+    .testimonial-card:hover::before {
+      bottom: 0;
+      right: 0;
+    }
+
+    .testimonial-card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 15px 45px rgba(0, 0, 0, 0.12);
+    }
+
+    .testimonial-card-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .testimonial-icon {
+      font-size: 2rem;
+      color: #34d399;
+      margin-right: 1.5rem;
+    }
+
+    /* Footer */
+    .footer-icon {
+      transition: all 0.3s ease;
+    }
+
+    .footer-icon:hover {
+      color: #34d399;
+      transform: scale(1.3);
+    }
+
+    .header-icon {
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-10px); }
+      60% { transform: translateY(-5px); }
+    }
+  </style>
 </head>
-<body class="bg-gray-100">
-    <!-- Header -->
-    <header class="bg-green-400 text-white">
-        <div class="container mx-auto flex justify-between items-center py-4 px-6">
-            <h1 class="text-2xl font-bold">MindHorizon</h1>
-            <nav>
-                <ul class="flex space-x-6">
-                    <li><a href="#" class="hover:underline">About</a></li>
-                    <!-- Added Links -->
-                    <li><a href="#" class="hover:underline">Mindfulness</a></li>
-                    <li><a href="#" class="hover:underline">Blog</a></li>
-                    <!-- New Program Link -->
-                    <li><a href="programpage.html" class="hover:underline">Program</a></li>
-                    <!-- Existing Link -->
-                </ul>
-            </nav>
+<body>
+  <!-- Header -->
+  <header class="bg-green-500 text-white shadow-lg">
+    <div class="container mx-auto flex justify-between items-center py-5 px-4 sm:px-6">
+      <h1 class="text-2xl sm:text-3xl font-bold flex items-center">
+        <i class="fas fa-leaf mr-3 text-white header-icon"></i> MindHorizon
+      </h1>
+      <nav>
+        <ul class="flex space-x-4 sm:space-x-8 text-base sm:text-lg">
+          <li><a href="About_page.html" class="nav-button">About</a></li>
+          <!-- <li><a href="#" class="nav-button">Mindfulness</a></li>
+          <li><a href="#" class="nav-button">Blog</a></li> -->
+          <!-- <li><a href="programpage.html" class="nav-button">Program</a></li> -->
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Slider Section -->
+  <section class="relative w-full overflow-hidden mt-6">
+    <div id="slider" class="relative w-full h-full">
+      <div class="slide">
+        <img src="../images/image6.png" alt="Slide 2" />
+        <div class="slide-text">
+          Understanding and supporting mental well-being by building a compassionate, informed community that helps every child feel safe and valued.
         </div>
-    </header>
-    <!-- Hero Section -->
-    <section class="bg-gray-50">
-        <div class="container mx-auto flex flex-col lg:flex-row items-center py-16 px-6">
-            <!-- Left Content -->
-            <div class="lg:w-1/2 text-center lg:text-left">
-                <h2 class="text-5xl font-bold text-gray-900 leading-tight">
-                    Lifelong Mental Wellness for Every Child
-                </h2>
-                <p class="text-gray-700 mt-4 text-lg">
-                    Many children's mental health challenges go unnoticed. MindHorizon provides a 
-                    reliable assessment and support tool to track well-being, detect early signs, and 
-                    offer timely care.
-                </p>
-                <button class="mt-6 bg-green-500 text-white px-6 py-3 rounded-lg text-lg shadow-lg hover:bg-green-600">
-                    <a href="loginmain.html">Get Started</a>
-                </button>
-            </div>
-            <!-- Right Image -->
-            <div class="lg:w-1/2 mt-8 lg:mt-0">
-                <img src="../images/full-shot-girl-playing-home.jpg" alt="Mindful Child" 
-                    class="rounded-lg shadow-lg w-full h-auto">
-            </div>
+      </div>
+      <div class="slide">
+        <img src="../images/image2.png" alt="Slide 3" />
+        <div class="slide-text">
+          Taking a step towards a happier childhood by encouraging self-expression, confidence, and promoting resilience through thoughtful guidance.
         </div>
-    </section>
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-12">
-        <div class="container mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
-            <!-- Section 1 -->
-            <div>
-                <h3 class="text-lg font-bold">© 2025 MindHorizon</h3>
-                <p class="mt-4 text-sm">We recognize and honor the unique mental and emotional journeys of children. We acknowledge the importance of creating a safe, supportive environment for children to grow emotionally and mentally.</p>
-                <p class="mt-2 text-sm">Our commitment is to ensure that every child has access to the resources and support they need for a healthier, happier future.</p>
-            </div>
-
-            <!-- Section 2: Privacy & Terms -->
-            <div>
-                <h3 class="text-lg font-bold">Privacy & Terms</h3>
-                <ul class="mt-4 space-y-2">
-                    <li><a href="#" class="text-sm hover:text-green-400">Privacy Policy</a></li>
-                    <li><a href="#" class="text-sm hover:text-green-400">Terms of Service</a></li>
-                </ul>
-            </div>
-
-            <!-- Section 3: Info -->
-            <div>
-                <h3 class="text-lg font-bold">Info</h3>
-                <ul class="mt-4 space-y-2">
-                    <li><a href="homeintro.html" class="text-sm hover:text-green-400">Home</a></li>
-                    <li><a href="#" class="text-sm hover:text-green-400">Mindfulness</a></li>
-                    <li><a href="#" class="text-sm hover:text-green-400">Blog</a></li>
-                    <li><a href="#" class="text-sm hover:text-green-400">FAQ and Help</a></li>
-                    <li><a href="#" class="text-sm hover:text-green-400">Support Services</a></li>
-                </ul>
-            </div>
-
-            <!-- Section 4: Charter of Rights & Contact -->
-            <div>
-                <h3 class="text-lg font-bold">Action</h3>
-                <ul class="mt-4 space-y-2">
-                    <li><a href="#" class="text-sm hover:text-green-400">Contact</a></li>
-                    <li><a href="#" class="text-sm hover:text-green-400">About Us</a></li>
-                    <li><a href="#" class="text-sm hover:text-green-400">Our Team</a></li>
-                </ul>
-            </div>
+      </div>
+      <div class="slide active">
+        <img src="../images/image00.png" alt="Slide 1" />
+        <div class="slide-text">
+          Empowering young minds for a better future by supporting emotional well-being and growth while providing essential tools for a brighter tomorrow.
         </div>
-
-        <!-- Social Media Links -->
-        <div class="text-center mt-8">
-            <p class="text-sm">Follow us on social media:</p>
-            <div class="flex justify-center space-x-6 mt-4">
-                <a href="https://www.instagram.com" target="_blank" class="text-white hover:text-green-400 text-xl">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                <a href="https://www.facebook.com" target="_blank" class="text-white hover:text-green-400 text-xl">
-                    <i class="fab fa-facebook"></i>
-                </a>
-                <a href="https://www.twitter.com" target="_blank" class="text-white hover:text-green-400 text-xl">
-                    <i class="fab fa-twitter"></i>
-                </a>
-            </div>
+      </div>
+      <div class="slide">
+        <img src="../images/image03.png" alt="Slide 4" />
+        <div class="slide-text">
+          Creating safe spaces for children by fostering open communication and trust, ensuring emotional security and personal growth.
         </div>
-
-        <div class="text-center mt-8 text-sm">
-            <p>MindHorizon is committed to providing the best mental wellness tools for children.</p>
+      </div>
+      <div class="slide">
+        <img src="../images/image4.png" alt="Slide 5" />
+        <div class="slide-text">
+          Helping kids express their emotions while encouraging self-awareness and understanding through a platform for healthy emotional development.
         </div>
-    </footer>
+      </div>
+      <div class="slide">
+        <img src="../images/image5.png" alt="Slide 6" />
+        <div class="slide-text">
+          Guiding children towards emotional strength by equipping young minds with coping strategies for a foundation of lifelong well-being.
+        </div>
+      </div>
+      <button id="prevSlide" class="slider-nav left">❮</button>
+      <button id="nextSlide" class="slider-nav right">❯</button>
+      <div id="sliderDots" class="slider-dots"></div>
+    </div>
+  </section>
 
+  <!-- Content Section -->
+  <section class="py-16 px-4 sm:px-6">
+    <div class="content-section container mx-auto">
+      <div class="nurturing-container">
+        <div class="nurturing-content">
+          <h2>Nurturing Young Minds</h2>
+          <p>MindHorizon provides a playful, engaging platform to assess and boost your child’s mental health, fostering resilience and joy every step of the way.</p>
+          <button class="bg-gradient-to-r from-green-500 to-teal-500 text-white px-10 py-4 rounded-full text-lg font-bold shadow-lg hover:from-green-600 hover:to-teal-600 transition transform hover:scale-105">
+            <a href="loginmain.html">Get Started!</a>
+          </button>
+        </div>
+        <img src="https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Happy Child" class="content-img">
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section class="extra-section">
+    <div class="container mx-auto px-4 sm:px-6">
+      <h2 class="text-3xl sm:text-4xl font-bold text-center text-green-600 mb-16 content-heading">
+        How It Works
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
+        <div class="extra-card">
+          <div class="extra-card-content text-center">
+            <i class="fas fa-gamepad extra-icon"></i>
+            <h3 class="text-2xl font-semibold text-gray-800">Interactive Fun</h3>
+            <p class="text-gray-600 mt-6">Kids engage in colorful games and activities designed to assess their emotional well-being in a stress-free way.</p>
+          </div>
+        </div>
+        <div class="extra-card">
+          <div class="extra-card-content text-center">
+            <i class="fas fa-chart-line extra-icon"></i>
+            <h3 class="text-2xl font-semibold text-gray-800">Insightful Reports</h3>
+            <p class="text-gray-600 mt-6">Parents receive detailed, easy-to-read reports to track progress and spot areas for support.</p>
+          </div>
+        </div>
+        <div class="extra-card">
+          <div class="extra-card-content text-center">
+            <i class="fas fa-lightbulb extra-icon"></i>
+            <h3 class="text-2xl font-semibold text-gray-800">Personalized Tips</h3>
+            <p class="text-gray-600 mt-6">Get tailored strategies and activities to nurture your child’s emotional growth and happiness.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="testimonial-section">
+    <div class="container mx-auto px-4 sm:px-6">
+      <h2 class="text-3xl sm:text-4xl font-bold text-center text-green-600 mb-16 content-heading">
+        Voices of Parents
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+        <div class="testimonial-card">
+          <div class="testimonial-card-content">
+            <p class="text-gray-700 mb-6">"My daughter loves the games, and I love how it helps us understand her better!"</p>
+            <p class="text-green-600 font-semibold flex items-center">
+              <i class="fas fa-quote-left testimonial-icon"></i> Neha, Mom of 7-year-old
+            </p>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-card-content">
+            <p class="text-gray-700 mb-6">"The reports are so clear, and the tips really make a difference."</p>
+            <p class="text-green-600 font-semibold flex items-center">
+              <i class="fas fa-quote-left testimonial-icon"></i> Raj, Dad of 9-year-old
+            </p>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-card-content">
+            <p class="text-gray-700 mb-6">"It’s amazing to see my son open up through this platform!"</p>
+            <p class="text-green-600 font-semibold flex items-center">
+              <i class="fas fa-quote-left testimonial-icon"></i> Meera, Parent of 5-year-old
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-green-500 text-white py-14 px-4 sm:px-6">
+    <div class="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
+      <div>
+        <h3 class="text-xl font-bold flex items-center">
+          <i class="fas fa-tree mr-3 text-white"></i> MindHorizon
+        </h3>
+        <p class="mt-6 text-gray-200">Empowering young minds with love, care, and fun since 2025!</p>
+      </div>
+      <div>
+        <h3 class="text-xl font-bold">Quick Links</h3>
+        <ul class="mt-6 space-y-3 text-sm">
+          <li><a href="privacy_policy.html" class="text-gray-200 hover:text-white">Privacy Policy</a></li>
+          <li><a href="Term_of_services.html" class="text-gray-200 hover:text-white">Terms of Service</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-xl font-bold">Explore More</h3>
+        <ul class="mt-6 space-y-3 text-sm">
+          <li><a href="homeintro.html" class="text-gray-200 hover:text-white">Home</a></li>
+          <!-- <li><a href="#" class="text-gray-200 hover:text-white">Mindfulness</a></li>
+          <li><a href="#" class="text-gray-200 hover:text-white">Blog</a></li> -->
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-xl font-bold">Stay Connected</h3>
+        <div class="mt-6 flex space-x-6">
+          <a href="https://www.instagram.com" target="_blank" class="footer-icon text-gray-200 text-2xl"><i class="fab fa-instagram"></i></a>
+          <a href="https://www.facebook.com" target="_blank" class="footer-icon text-gray-200 text-2xl"><i class="fab fa-facebook"></i></a>
+          <a href="https://www.twitter.com" target="_blank" class="footer-icon text-gray-200 text-2xl"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="mt-10 text-center text-gray-200 text-sm">
+      © 2025 MindHorizon - All Rights Reserved
+    </div>
+  </footer>
+
+  <!-- Slider Script -->
+  <script>
+    const slides = document.querySelectorAll(".slide");
+    const sliderDots = document.getElementById("sliderDots");
+    let currentIndex = 0;
+    let slideInterval;
+
+    slides.forEach((_, index) => {
+      const dot = document.createElement("button");
+      dot.className = index === 0 ? "active" : "";
+      dot.addEventListener("click", () => {
+        currentIndex = index;
+        showSlide(currentIndex);
+        resetInterval();
+      });
+      sliderDots.appendChild(dot);
+    });
+    const dots = sliderDots.querySelectorAll("button");
+
+    function showSlide(index) {
+      slides.forEach((slide, i) => {
+        slide.classList.remove("active");
+        slide.style.opacity = "0";
+        slide.style.transform = "scale(1.05)";
+        dots[i].classList.remove("active");
+      });
+      slides[index].classList.add("active");
+      slides[index].style.opacity = "1";
+      slides[index].style.transform = "scale(1)";
+      dots[index].classList.add("active");
+    }
+
+    function nextSlide() {
+      currentIndex = (currentIndex + 1) % slides.length;
+      showSlide(currentIndex);
+    }
+
+    function prevSlide() {
+      currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+      showSlide(currentIndex);
+    }
+
+    document.getElementById("nextSlide").addEventListener("click", () => {
+      nextSlide();
+      resetInterval();
+    });
+
+    document.getElementById("prevSlide").addEventListener("click", () => {
+      prevSlide();
+      resetInterval();
+    });
+
+    function startInterval() {
+      slideInterval = setInterval(nextSlide, 7000);
+    }
+
+    function resetInterval() {
+      clearInterval(slideInterval);
+      startInterval();
+    }
+
+    const slider = document.getElementById("slider");
+    slider.addEventListener("mouseenter", () => clearInterval(slideInterval));
+    slider.addEventListener("mouseleave", () => startInterval());
+
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    slider.addEventListener("touchstart", (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    });
+
+    slider.addEventListener("touchend", (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      if (touchStartX - touchEndX > 50) {
+        nextSlide();
+        resetInterval();
+      }
+      if (touchEndX - touchStartX > 50) {
+        prevSlide();
+        resetInterval();
+      }
+    });
+
+    showSlide(currentIndex);
+    startInterval();
+  </script>
 </body>
 </html>

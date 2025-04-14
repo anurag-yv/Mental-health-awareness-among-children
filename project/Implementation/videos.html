@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindHorizon - Video Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(180deg, #9cf2ca, #f0f9ff);
+            font-family: 'Poppins', sans-serif;
+            color: #1e293b;
+            overflow-x: hidden;
+        }
+        .header-bg {
+            background: linear-gradient(135deg, #bddfe3, #10b981);
+            position: relative;
+            padding: 5rem 0;
+            text-align: center;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 50% 100%, 0 85%);
+        }
+        .header-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://via.placeholder.com/100x100.png?text=Soft+Hearts') repeat;
+            opacity: 0.15;
+            animation: drift 25s linear infinite;
+        }
+        .video-card {
+            background: linear-gradient(145deg, #ffffff, #f0f9ff);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            position: relative;
+            transition: transform 0.5s ease, box-shadow 0.5s ease, opacity 0.5s ease;
+            cursor: pointer;
+            opacity: 0;
+        }
+        .video-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .video-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+        }
+        .video-preview {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-bottom: 4px solid #e2f0f3;
+            transition: filter 0.4s ease;
+        }
+        .video-card:hover .video-preview {
+            filter: brightness(1.2) saturate(1.3);
+        }
+        .cartoon-icon {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 60px;
+            height: 60px;
+            background: url('https://via.placeholder.com/60x60.png?text=Star+Smile') no-repeat center/contain;
+            animation: twinkle 2.5s infinite;
+            z-index: 10;
+        }
+        .title-text {
+            font-family: 'Comic Neue', cursive;
+            font-size: 1.75rem;
+            color: #10b981;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+            transition: color 0.4s ease, transform 0.4s ease;
+        }
+        .video-card:hover .title-text {
+            color: #1e40af;
+            transform: scale(1.05);
+        }
+        .action-btn {
+            background: linear-gradient(90deg, #06b6d4, #10b981);
+            color: white;
+            border-radius: 40px;
+            padding: 0.8rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            z-index: 1;
+        }
+        .action-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, #10b981, #88d5e2);
+            transition: left 0.4s ease;
+            z-index: -1;
+        }
+        .action-btn:hover::before {
+            left: 0;
+        }
+        .action-btn:hover {
+            transform: scale(1.2);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+        .action-btn:active {
+            transform: scale(1.1);
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            background: linear-gradient(135deg, #ffffff, #ecfdf5);
+            border-radius: 16px;
+            padding: 2.5rem;
+            max-width: 90%;
+            max-height: 85%;
+            position: relative;
+            animation: glide-in 0.6s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        .close-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #06b6d4, #0fe8a0);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.4s ease, background 0.4s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .close-btn:hover {
+            transform: rotate(180deg);
+            background: linear-gradient(135deg, #1e40af, #06b6d4);
+        }
+        .category-filter {
+            display: flex;
+            gap: 1.2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .filter-btn {
+            background: linear-gradient(90deg, #e0f2fe, #f0f9ff);
+            color: #1e293b;
+            padding: 0.7rem 2rem;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            z-index: 1;
+        }
+        .filter-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, #06b6d4, #10b981);
+            transition: left 0.4s ease;
+            z-index: -1;
+        }
+        .filter-btn.active::before, .filter-btn:hover::before {
+            left: 0;
+        }
+        .filter-btn.active, .filter-btn:hover {
+            color: white;
+            transform: scale(1.15);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+        .filter-btn:active {
+            transform: scale(1.05);
+        }
+        @keyframes twinkle {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.3); opacity: 1; }
+        }
+        @keyframes drift {
+            0% { background-position: 0 0; }
+            100% { background-position: 200px 200px; }
+        }
+        @keyframes glide-in {
+            0% { transform: translateY(-60px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+        @media (max-width: 768px) {
+            .video-preview { height: 180px; }
+            .header-bg { padding: 4rem 0; }
+            .modal-content { padding: 1.8rem; }
+            .title-text { font-size: 1.5rem; }
+            .action-btn { padding: 0.7rem 2rem; }
+            .filter-btn { padding: 0.6rem 1.8rem; }
+        }
+        @media (max-width: 640px) {
+            .video-preview { height: 150px; }
+            .header-bg { padding: 3rem 0; }
+            .title-text { font-size: 1.25rem; }
+            .action-btn { padding: 0.6rem 1.8rem; font-size: 1rem; }
+            .filter-btn { padding: 0.5rem 1.5rem; font-size: 0.9rem; }
+            .modal-content { padding: 1.2rem; }
+            .close-btn { width: 36px; height: 36px; font-size: 1.3rem; }
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <!-- Header -->
+    <header class="header-bg relative">
+        <div class="container mx-auto px-4">
+            <h1 class="text-5xl md:text-7xl font-bold text-white">MindHorizon</h1>
+            <p class="mt-4 text-lg md:text-2xl text-white opacity-90">Explore mental health videos for kids</p>
+        </div>
+    </header>
+
+    <!-- Filter Section -->
+    <section class="container mx-auto py-8 px-4">
+        <div class="category-filter">
+            <button class="filter-btn active" data-category="all">All</button>
+            <button class="filter-btn" data-category="awareness">Awareness</button>
+            <button class="filter-btn" data-category="detection">Detection</button>
+            <button class="filter-btn" data-category="support">Support</button>
+        </div>
+    </section>
+
+    <!-- Video Grid -->
+    <section class="container mx-auto py-16 px-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10" id="video-grid"></div>
+    </section>
+
+    <!-- Modal for Video Playback -->
+    <div class="modal" id="video-modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">×</span>
+            <iframe
+                id="modal-video"
+                class="w-full max-h-[70vh] rounded-lg"
+                src=""
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+            ></iframe>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-teal-500 to-teal-600 text-white py-10 text-center">
+        <p class="text-lg font-semibold">© 2025 MindHorizon - Empowering Young Minds</p>
+    </footer>
+
+    <script>
+        // Video data with YouTube embed URLs
+        const videos = [
+            { title: "Understanding Anxiety", desc: "Learn what anxiety feels like for kids.", src: "https://www.youtube.com/embed/eD1wliuHxHI?si=-tDGaspYkqZuBEfy", category: "awareness" },
+            { title: "Spotting Emotions", desc: "Help kids name their feelings.", src: "https://www.youtube.com/embed/hZyucn4AXrs?si=XT6ez_7Pfz9hMory", category: "detection" },
+            { title: "Coping with Sadness", desc: "Tools to lift kids’ spirits.", src: "https://www.youtube.com/embed/tgsU_13oIVI?si=dEZyrJTqhjgrTe3o", category: "support" },
+            { title: "Building Confidence", desc: "Grow strong with self-esteem tips.", src: "https://www.youtube.com/embed/5BuHC8wBdBU?si=BjbNRxZVabkhh5dx", category: "awareness" },
+            { title: "ADHD Insights", desc: "Understand ADHD in young minds.", src: "https://www.youtube.com/embed/YeamHE6Kank?si=d_oC5rF-t1V26rf_", category: "detection" },
+            { title: "Mindfulness Moments", desc: "Calm kids with simple exercises.", src: "https://www.youtube.com/embed/IIbBI-BT9c4?si=Nlq4CCiY6ENhd5Id", category: "support" },
+            { title: "Facing Bullies", desc: "Stand up with courage.", src: "https://www.youtube.com/embed/7oKjW1OIjuw?si=A_5ZIGLdFpvwQHUa", category: "awareness" },
+            { title: "Parenting for Wellness", desc: "Support kids’ mental health.", src: "https://www.youtube.com/embed/dDQ5tgd1_HY?si=UMwHHMvtkQwRzF4n", category: "support" },
+            { title: "Social Media Smarts", desc: "Stay safe online.", src: "https://www.youtube.com/embed/EyQeUwqCDWg?si=haYFsxI_JTOmF2Fn", category: "awareness" },
+            { title: "Stress Signals", desc: "Spot stress early in kids.", src: "https://www.youtube.com/embed/PGJ9fTVFT4A?si=ywr677x_ACToI42J", category: "detection" },
+            { title: "Autism Awareness", desc: "Celebrate unique minds.", src: "https://www.youtube.com/embed/w3OXxTHqNpk?si=wxEIrehnUa3rf45q", category: "awareness" },
+            { title: "Creating Happy Spaces", desc: "Build safe zones for kids.", src: "https://www.youtube.com/embed/l_62NAp5rH4?si=haxJ9aMsYk_vvCuo", category: "support" },
+            { title: "Navigating Grief", desc: "Help kids through loss.", src: "https://www.youtube.com/embed/Ul7D_SgfZPk?si=l6Qnsv5Jc0td6qxv", category: "support" },
+            { title: "Healthy Minds Diet", desc: "Food for thought and mood.", src: "https://www.youtube.com/embed/awtmTJW9ic8?si=Igvcbksmjkz6I6w8", category: "awareness" },
+            { title: "Therapy for Kids", desc: "Make talking fun and helpful.", src: "https://www.youtube.com/embed/aISXCw0Pi94?si=fRrmYxJhuWQbF5WP", category: "support" }
+        ];
+
+        // Populate video grid
+        function loadVideos(category = 'all') {
+            const grid = $('#video-grid');
+            grid.empty();
+            const filteredVideos = category === 'all' ? videos : videos.filter(video => video.category === category);
+            filteredVideos.forEach(video => {
+                const card = `
+                    <div class="video-card">
+                        <div class="relative">
+                            <iframe
+                                class="video-preview w-full h-[220px] rounded-t-lg"
+                                src="${video.src}"
+                                frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen
+                            ></iframe>
+                            <div class="cartoon-icon"></div>
+                        </div>
+                        <div class="p-8 text-center">
+                            <h3 class="title-text">${video.title}</h3>
+                            <p class="mt-3 text-gray-600">${video.desc}</p>
+                            <button class="action-btn mt-5" onclick="openModal('${video.src}')">Watch Now</button>
+                        </div>
+                    </div>`;
+                grid.append(card);
+            });
+            triggerScrollAnimations();
+        }
+
+        // Modal controls
+        function openModal(src) {
+            $('#modal-video').attr('src', src + '?autoplay=1');
+            $('#video-modal').fadeIn(400);
+        }
+
+        function closeModal() {
+            $('#video-modal').fadeOut(400);
+            $('#modal-video').attr('src', '');
+        }
+
+        // Scroll animation
+        function triggerScrollAnimations() {
+            $('.video-card').each(function() {
+                const rect = this.getBoundingClientRect();
+                if (rect.top <= window.innerHeight * 0.85) {
+                    $(this).addClass('visible');
+                }
+            });
+        }
+
+        // Initialize and event handlers
+        $(document).ready(function() {
+            loadVideos();
+            $(window).on('scroll', triggerScrollAnimations);
+
+            $('.filter-btn').click(function() {
+                $('.filter-btn').removeClass('active');
+                $(this).addClass('active');
+                const category = $(this).data('category');
+                loadVideos(category);
+                window.scrollTo({ top: $('#video-grid').offset().top - 100, behavior: 'smooth' });
+            });
+
+            // Close modal with Escape key
+            $(document).keydown(function(e) {
+                if (e.key === "Escape") closeModal();
+            });
+        });
+    </script>
+</body>
+</html>

@@ -5,17 +5,153 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome to MindHorizon</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Add Font Awesome for social media icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        html { scroll-behavior: smooth; }
+        .floating { transition: transform 0.3s ease-in-out; }
+        .floating:hover { transform: translateY(-5px); }
+        .card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 1rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background: white;
+        }
+        .card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+        .card-gradient {
+            position: absolute;
+            inset: 0;
+            border: 2px solid transparent;
+            border-radius: 1rem;
+            background: linear-gradient(45deg, #10B981, #6EE7B7) border-box;
+            -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .blog-card {
+            background-size: cover;
+            background-position: center;
+        }
+        .blog-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 1;
+        }
+        .blog-card > * { position: relative; z-index: 2; }
+        .welcome-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 600px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .welcome-section .container {
+            width: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        .welcome-section h2 {
+            padding: 1rem;
+        }
+        .welcome-section p {
+            margin: 0;
+            padding: 0.5rem 1rem;
+        }
+        .welcome-section .floating-icon {
+            position: absolute;
+            font-size: 2rem;
+            color: rgba(255, 255, 255, 0.3);
+            animation: float 4s infinite ease-in-out;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        .quiz-section {
+            background: linear-gradient(135deg, #A7F3D0 0%, #6EE7B7 100%);
+            min-height: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .quiz-section::after {
+            content: '✨';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 2.5rem;
+            opacity: 0.3;
+            animation: sparkle 2s infinite;
+        }
+        @keyframes sparkle {
+            0% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.2); }
+            100% { opacity: 0.3; transform: scale(1); }
+        }
+        .quiz-content {
+            max-width: 1200px;
+            width: 100%;
+            padding: 4rem;
+            text-align: center;
+        }
+        .title-animation {
+            animation: fadeIn 1s ease-in-out;
+        }
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(45deg, #10B981, #34D399);
+            color: white;
+            padding: 12px 16px;
+            border-radius: 50%;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            display: none;
+            transition: opacity 0.3s;
+        }
+        .back-to-top:hover { opacity: 0.9; }
+        @media (max-width: 768px) {
+            .quiz-content { padding: 2rem; }
+            .quiz-content h2 { font-size: 2rem; }
+            .quiz-content p { font-size: 1rem; }
+            .welcome-section { min-height: 400px; }
+            .card { margin: 0 1rem; }
+        }
+        @media (max-width: 640px) {
+            .card { min-height: 300px; }
+        }
+    </style>
 </head>
 
-<body class="bg-gray-100"> <!-- Added padding top to prevent content being hidden under the navbar -->
-
+<body class="bg-gray-100">
     <!-- Navbar -->
-    <nav class="bg-green-600 py-4">
+    <nav class="bg-green-500 py-4 shadow-md">
         <div class="container mx-auto flex justify-between items-center px-4">
-            <a href="#" class="text-white text-2xl font-bold">MindHorizon</a>
+            <a href="#" class="text-white text-3xl font-bold tracking-tight">MindHorizon</a>
             <div class="space-x-6 flex items-center">
+                <a href="#" class="text-white text-lg font-semibold hover:text-green-200">Home</a>
                 <a href="resource.html" class="text-white text-lg font-semibold hover:text-green-200">Resources</a>
                 <a href="program.html" class="text-white text-lg font-semibold hover:text-green-200">Program</a>
             </div>
@@ -23,84 +159,208 @@
     </nav>
 
     <!-- Welcome Section -->
+    <section class="welcome-section text-center text-white flex items-center justify-center">
+        <div class="container mx-auto px-4 relative z-10 w-full">
+            <h2 class="text-5xl md:text-7xl font-extrabold mb-6 title-animation">Welcome to MindHorizon</h2>
+            <p class="text-xl md:text-3xl mb-4 w-full bg-black bg-opacity-50 py-4">Nurturing young minds for a brighter future.</p>
+            <p class="text-lg md:text-xl text-gray-200 w-full">A sanctuary of support and growth for children and families.</p>
+        </div>
+        <i class="fas fa-heart floating-icon" style="top: 20%; left: 10%;"></i>
+        <i class="fas fa-star floating-icon" style="bottom: 15%; right: 15%; animation-delay: 1s;"></i>
+        <i class="fas fa-leaf floating-icon" style="top: 30%; right: 20%; animation-delay: 2s;"></i>
+    </section>
+
+    <!-- Self-Assessment Section -->
+    <section class="quiz-section" id="quiz">
+        <div class="quiz-content">
+            <h2 class="text-4xl md:text-5xl font-extrabold text-gray-800 mb-6 title-animation">Discover Your Mind's Horizon</h2>
+            <p class="text-lg md:text-xl text-gray-700 mb-8 max-w-2xl mx-auto">Take our interactive quiz to explore your mental well-being with ease and joy!</p>
+            <a href="quiz.html" class="inline-block bg-gradient-to-r from-green-500 to-teal-500 text-white text-lg md:text-xl font-bold py-3 px-10 rounded-full shadow-md hover:from-green-600 hover:to-teal-600 transition transform hover:scale-105">
+                <i class="fas fa-star mr-2"></i> Begin Your Mind Quest
+            </a>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl md:text-5xl font-extrabold text-center text-gray-900 mb-12 title-animation">Latest Mental Health Blogs</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+                <div class="card blog-card p-8 min-h-[400px] flex flex-col justify-between relative" style="background-image: url('../images/imagemainb1.png')">
+                    <div class="card-gradient"></div>
+                    <div>
+                        <span class="inline-block bg-green-500 text-white text-sm font-semibold py-1 px-3 rounded-full mb-3">Anxiety</span>
+                        <h3 class="text-2xl font-semibold text-white mb-4">Understanding Childhood Anxiety</h3>
+                        <p class="text-gray-200 mb-4">Signs and strategies for managing anxiety in kids.</p>
+                    </div>
+                    <div>
+                        <p class="text-gray-300 text-sm mb-2">April 1, 2025 | 5 min</p>
+                        <a href="https://www.thecounsellingplace.com/blog/understanding-anxiety-in-children-by-age-group" class="text-green-300 font-bold hover:underline">Read More →</a>
+                    </div>
+                </div>
+                <div class="card blog-card p-8 min-h-[400px] flex flex-col justify-between relative" style="background-image: url('../images/imagemainb2.png')">
+                    <div class="card-gradient"></div>
+                    <div>
+                        <span class="inline-block bg-green-500 text-white text-sm font-semibold py-1 px-3 rounded-full mb-3">Resilience</span>
+                        <h3 class="text-2xl font-semibold text-white mb-4">Building Resilience in Kids</h3>
+                        <p class="text-gray-200 mb-4">Ways to foster emotional strength in children.</p>
+                    </div>
+                    <div>
+                        <p class="text-gray-300 text-sm mb-2">March 28, 2025 | 7 min</p>
+                        <a href="blog-resilience.html" class="text-green-300 font-bold hover:underline">Read More →</a>
+                    </div>
+                </div>
+                <div class="card blog-card p-8 min-h-[400px] flex flex-col justify-between relative" style="background-image: url('../images/imageb15.png')">
+                    <div class="card-gradient"></div>
+                    <div>
+                        <span class="inline-block bg-green-500 text-white text-sm font-semibold py-1 px-3 rounded-full mb-3">Mindfulness</span>
+                        <h3 class="text-2xl font-semibold text-white mb-4">Mindfulness for Young Minds</h3>
+                        <p class="text-gray-200 mb-4">Easy mindfulness exercises for kids.</p>
+                    </div>
+                    <div>
+                        <p class="text-gray-300 text-sm mb-2">March 25, 2025 | 4 min</p>
+                        <a href="blog-mindfulness.html" class="text-green-300 font-bold hover:underline">Read More →</a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-12">
+                <a href="blogs.html" class="bg-gradient-to-r from-green-600 to-teal-600 text-white text-xl font-bold py-3 px-8 rounded-lg shadow-lg hover:from-green-700 hover:to-teal-700 transition">Explore All Blogs</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonial Section -->
     <section class="py-16 bg-green-50">
-        <div class="container mx-auto text-center">
-            <h2 class="text-4xl font-extrabold text-gray-900 mb-4">Welcome to MindHorizon</h2>
-            <p class="text-lg text-gray-700 mb-8">Nurturing young minds for a brighter future. We provide a safe, supportive environment for children to grow emotionally and mentally.</p>
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl md:text-5xl font-extrabold text-center text-gray-900 mb-12 title-animation">What People Say</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+                <div class="card p-6 relative">
+                    <div class="card-gradient"></div>
+                    <p class="text-gray-700 mb-4">"MindHorizon brought peace and confidence to my child!"</p>
+                    <p class="text-green-600 font-semibold flex items-center"><i class="fas fa-quote-left mr-2 text-green-400"></i> Sarah, Parent</p>
+                </div>
+                <div class="card p-6 relative">
+                    <div class="card-gradient"></div>
+                    <p class="text-gray-700 mb-4">"The resources are clear and incredibly helpful."</p>
+                    <p class="text-green-600 font-semibold flex items-center"><i class="fas fa-quote-left mr-2 text-green-400"></i> John, Teacher</p>
+                </div>
+                <div class="card p-6 relative">
+                    <div class="card-gradient"></div>
+                    <p class="text-gray-700 mb-4">"A wonderful platform for young minds."</p>
+                    <p class="text-green-600 font-semibold flex items-center"><i class="fas fa-quote-left mr-2 text-green-400"></i> Emily, Counselor</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- YouTube Video Section -->
+    <section class="py-16 bg-green-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl md:text-5xl font-extrabold text-center text-gray-900 mb-12 title-animation">Helpful Video Resources</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+                <div class="card relative">
+                    <div class="card-gradient"></div>
+                    <div class="w-full aspect-video rounded-t-xl overflow-hidden">
+                        <iframe class="w-full h-full" src="https://www.youtube.com/embed/8rwploGHqxE?si=0Lb0mmgchs8qxkRy" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <p class="text-gray-700 text-center p-4">Tips for parents to support kids' mental health</p>
+                </div>
+                <div class="card relative">
+                    <div class="card-gradient"></div>
+                    <div class="w-full aspect-video rounded-t-xl overflow-hidden">
+                        <iframe class="w-full h-full" src="https://www.youtube.com/embed/8iH6OI2NrOA?si=-c_0dSJ13O-1OVzv" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <p class="text-gray-700 text-center p-4">Understanding emotions for kids</p>
+                </div>
+                <div class="card relative">
+                    <div class="card-gradient"></div>
+                    <div class="w-full aspect-video rounded-t-xl overflow-hidden">
+                        <iframe class="w-full h-full" src="https://www.youtube.com/embed/Cv2DJ9riXb4?si=k03WhC4UB0LgBjGv" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <p class="text-gray-700 text-center p-4">Coping strategies for young minds</p>
+                </div>
+            </div>
+            <div class="text-center mt-12">
+                <a href="videos.html" class="bg-gradient-to-r from-green-600 to-teal-600 text-white text-xl font-bold py-3 px-8 rounded-lg shadow-lg hover:from-green-700 hover:to-teal-700 transition">Watch More Videos</a>
+            </div>
         </div>
     </section>
 
     <!-- Resources Section -->
-    <section class="py-16 bg-[#E6F4EA]">  <!-- Soft pastel green background -->
-        <div class="container mx-auto p-10 rounded-xl shadow-lg">
-            <h2 class="text-5xl font-extrabold text-center text-gray-900 mb-12">Explore Our Resources</h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 px-8">
-                
-                <!-- Mental Health Guide -->
-                <div class="bg-white p-10 rounded-2xl shadow-lg hover:shadow-xl transition floating h-64 flex flex-col justify-between">
-                    <h3 class="text-3xl font-semibold text-gray-900">📖 Mental Health Guide</h3>
-                    <p class="text-gray-700 text-xl mt-3">A guide to children's mental well-being.</p>
-                    <div class="mt-6">
-                        <a href="guide.html" class="text-xl text-green-600 font-bold hover:underline">📚 Read Guide</a> | 
-                        <a href="https://drive.google.com/file/d/1dnaAGG8bmtDFGpipFjNob7EHZIV_n97W/view?usp=sharing" class="text-xl text-green-600 font-bold hover:underline">📄 Download PDF</a>
+    <section class="py-16 bg-[#E6F4EA]">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl md:text-5xl font-extrabold text-center text-gray-900 mb-12 title-animation">Explore Our Resources</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <div class="card p-8 relative flex flex-col justify-between">
+                    <div class="card-gradient"></div>
+                    <div>
+                        <h3 class="text-2xl font-semibold text-gray-900 flex items-center"><i class="fas fa-book mr-2 text-green-500"></i> Mental Health Guide</h3>
+                        <p class="text-gray-700 text-lg mt-3">A guide to supporting children's mental well-being.</p>
+                    </div>
+                    <div class="mt-6 flex space-x-4">
+                        <a href="guide.html" class="text-lg text-green-600 font-bold hover:underline">Read</a>
+                        <a href="https://drive.google.com/file/d/1dnaAGG8bmtDFGpipFjNob7EHZIV_n97W/view?usp=sharing" class="text-lg text-green-600 font-bold hover:underline">Download</a>
                     </div>
                 </div>
-
-                <!-- Self-Assessment Quiz -->
-                <div class="bg-white p-10 rounded-2xl shadow-lg hover:shadow-xl transition floating h-64 flex flex-col justify-between">
-                    <h3 class="text-3xl font-semibold text-gray-900">📝 Self-Assessment Quiz</h3>
-                    <p class="text-gray-700 text-xl mt-3">Evaluate mental well-being with this quiz.</p>
-                    <a href="quiz.html" class="mt-6 inline-block text-xl text-green-600 font-bold hover:underline">🔍 Take Quiz</a>
-                </div>
-
-            </div>
-
-            <!-- Educational Videos Section -->
-            <div class="flex justify-center mt-12">
-                <div class="bg-white p-10 rounded-2xl shadow-lg hover:shadow-xl transition floating w-1/2 h-64 flex flex-col justify-between">
-                    <h3 class="text-3xl font-semibold text-gray-900">🎥 Educational Videos</h3>
-                    <p class="text-gray-700 text-xl mt-3">Expert talks on mental health.</p>
-                    <a href="videos.html" class="mt-6 inline-block text-xl text-green-600 font-bold hover:underline">▶️ Watch Now</a>
+                <div class="card p-8 relative flex flex-col justify-between">
+                    <div class="card-gradient"></div>
+                    <div>
+                        <h3 class="text-2xl font-semibold text-gray-900 flex items-center"><i class="fas fa-video mr-2 text-green-500"></i> Educational Videos</h3>
+                        <p class="text-gray-700 text-lg mt-3">Expert talks on mental health topics.</p>
+                    </div>
+                    <a href="videos.html" class="mt-6 text-lg text-green-600 font-bold hover:underline">Watch Now</a>
                 </div>
             </div>
-
             <div class="text-center mt-12">
-                <a href="resource.html" 
-                class="bg-white text-green-800 text-2xl font-bold py-3 px-8 rounded-lg shadow-lg hover:bg-green-400 transition">
-                View All Resources
-                </a>
+                <a href="resource.html" class="bg-gradient-to-r from-green-500 to-teal-500 text-white text-xl font-bold py-3 px-8 rounded-lg shadow-lg hover:from-green-600 hover:to-teal-600 transition">View All Resources</a>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-white  py-8">
-        <div class="container mx-auto text-center">
-            <p class="text-lg">© 2025 MindHorizon. All Rights Reserved.</p>
-            <div class="mt-4">
-                <ul class="flex justify-center space-x-8 text-sm">
-                    <li><a href="#" class="hover:underline">Privacy Policy</a></li>
-                    <li><a href="#" class="hover:underline">Terms of Service</a></li>
-                    <li><a href="#" class="hover:underline">Contact</a></li>
-                </ul>
-            </div>
-            <div class="mt-6">
-                <p class="text-sm">Follow us on social media:</p>
-                <div class="flex justify-center space-x-6 mt-4">
-                    <a href="https://www.instagram.com" target="_blank" class="text-white hover:text-green-200 text-2xl">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                    <a href="https://www.facebook.com" target="_blank" class="text-white hover:text-green-200 text-2xl">
-                        <i class="fab fa-facebook"></i>
-                    </a>
-                    <a href="https://www.twitter.com" target="_blank" class="text-white hover:text-green-200 text-2xl">
-                        <i class="fab fa-twitter"></i>
-                    </a>
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-2xl font-bold mb-4">MindHorizon</h3>
+                    <p class="text-gray-400">Empowering young minds since 2025.</p>
                 </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:underline">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:underline">Terms of Service</a></li>
+                        <li><a href="#" class="hover:underline">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Stay Connected</h3>
+                    <p class="text-gray-400 mb-4">Join our community for updates!</p>
+                    <div class="flex justify-start space-x-6">
+                        <a href="https://www.instagram.com" target="_blank" class="text-white hover:text-green-200 text-2xl"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.facebook.com" target="_blank" class="text-white hover:text-green-200 text-2xl"><i class="fab fa-facebook"></i></a>
+                        <a href="https://www.twitter.com" target="_blank" class="text-white hover:text-green-200 text-2xl"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8 text-center">
+                <p class="text-lg">© 2025 MindHorizon. All Rights Reserved.</p>
             </div>
         </div>
     </footer>
 
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></a>
+
+    <script>
+        window.onscroll = function() {
+            const backToTop = document.getElementById('backToTop');
+            if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+                backToTop.style.display = 'block';
+            } else {
+                backToTop.style.display = 'none';
+            }
+        };
+    </script>
 </body>
 </html>
