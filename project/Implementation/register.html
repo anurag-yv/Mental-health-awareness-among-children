@@ -1,77 +1,243 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register - MindHorizon</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
-  />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MindHorizon - Register</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .subtle-bg {
+      position: fixed;
+      top: -20%;
+      left: -20%;
+      width: 140%;
+      height: 140%;
+      background: radial-gradient(circle, rgba(204, 251, 241, 0.3), transparent 70%);
+      z-index: -1;
+      animation: backgroundFloat 12s infinite ease-in-out;
+    }
+
+    @keyframes backgroundFloat {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(-20px, 30px); }
+    }
+
+    .glow-button {
+      background: linear-gradient(90deg, #34d399, #10b981);
+      box-shadow: 0 0 10px #34d399;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .glow-button:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 20px #10b981;
+    }
+
+    .animate-float {
+      animation: float 4s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .fade-slide {
+      animation: fadeSlide 1s ease-out;
+    }
+
+    @keyframes fadeSlide {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .input-icon {
+      position: relative;
+    }
+
+    .input-icon i {
+      position: absolute;
+      top: 50%;
+      left: 12px;
+      padding-top: 2.5%;
+      transform: translateY(-50%);
+      color: #9ca3af;
+    }
+
+    .input-icon input {
+      padding-left: 2.5rem; /* Adjust to leave enough space for the icon */
+      height: 40px; /* Set a fixed height for the input */
+    }
+
+    .carousel {
+      position: relative;
+      overflow: hidden;
+      height: 60px;
+    }
+
+    .carousel-item {
+      position: absolute;
+      opacity: 0;
+      transition: opacity 0.5s ease-in;
+      width: 100%;
+      text-align: center;
+    }
+
+    .carousel-item.active {
+      opacity: 1;
+      position: relative;
+    }
+
+    .carousel-dot {
+      width: 12px;
+      height: 12px;
+      background-color: #a7f3d0;
+      border-radius: 9999px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .carousel-dot.active {
+      background-color: #10b981;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .input-icon input {
+        padding-left: 2rem; /* Adjust for smaller screens */
+      }
+
+      .subtle-bg {
+        top: -10%;
+        left: -10%;
+        width: 120%;
+        height: 120%;
+      }
+
+      .fade-slide {
+        animation-duration: 0.5s; /* Faster for mobile */
+      }
+
+      .glow-button {
+        font-size: 0.875rem; /* Smaller button font on mobile */
+      }
+
+      .carousel {
+        height: 50px;
+      }
+
+      .carousel-dot {
+        width: 10px;
+        height: 10px;
+      }
+
+      .carousel-dot.active {
+        width: 10px;
+        height: 10px;
+      }
+    }
+  </style>
 </head>
-<body class="min-h-screen bg-gradient-to-r from-blue-200 via-teal-200 to-green-200 flex items-center justify-center p-6">
+<body class="min-h-screen flex flex-col items-center justify-start p-4 md:p-6 relative overflow-hidden">
 
-    <div class="bg-white p-6 rounded-xl shadow-xl w-full max-w-sm">
+  <div class="subtle-bg"></div>
 
-        <!-- Logo & Branding -->
-        <h2 class="text-center text-3xl font-semibold text-blue-600 mb-4">MindHorizon</h2>
-        <p class="text-center text-sm text-gray-600 mb-4">A calming space for mental wellness.</p>
+  <!-- Logo Section -->
+  <section class="text-center mt-2 mb-4 max-w-4xl mx-auto fade-slide">
+    <img src="your-logo.png" alt="MindHorizon Logo" class="mx-auto w-36 md:w-40 animate-float" />
+    <h1 class="text-3xl md:text-5xl font-bold text-teal-700 bg-clip-text text-transparent bg-gradient-to-r from-teal-500 to-emerald-500 mt-3">
+      Begin Your Wellness Journey
+    </h1>
+    <p class="text-base md:text-lg text-gray-600 mt-2 font-light px-4">
+      MindHorizon is your companion for mental clarity and emotional balance. Sign up to explore a world of calm.
+    </p>
+  </section>
 
-        <!-- Registration Form -->
-        <form action="http://localhost/Project%20Team%20Weaver/project/php/register.php" method="POST" class="space-y-4">
+  <!-- Registration Form -->
+  <section class="w-full max-w-3xl px-4 md:px-0 fade-slide mb-10">
+    <!-- Form -->
+    <form action="http://localhost/Project%20Team%20Weaver/project/php/register.php" method="POST" class="grid gap-5 md:grid-cols-1 px-2 md:px-20">
+      <div class="input-icon">
+        <label class="block text-sm font-medium text-gray-700 mb-1">First Name</label>
+        <input type="text" name="first_name" required
+          class="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-teal-400 focus:outline-none text-gray-700 text-sm bg-gray-50 transition duration-200">
+        <i class="fas fa-user"></i>
+      </div>
 
-            <div>
-                <label class="block text-sm font-medium text-gray-700">First Name</label>
-                <input type="text" name="first_name" required
-                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-teal-400 focus:outline-none text-gray-700 text-sm">
-            </div>
+      <div class="input-icon">
+        <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+        <input type="email" name="email" required
+          class="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-teal-400 focus:outline-none text-gray-700 text-sm bg-gray-50 transition duration-200">
+        <i class="fas fa-envelope"></i>
+      </div>
 
-            <div>
-                <label class="block text-sm font-medium text-gray-700">Email</label>
-                <input type="email" name="email" required
-                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-teal-400 focus:outline-none text-gray-700 text-sm">
-            </div>
+      <div class="input-icon">
+        <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+        <input type="password" name="password" required
+          class="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-teal-400 focus:outline-none text-gray-700 text-sm bg-gray-50 transition duration-200">
+        <i class="fas fa-lock"></i>
+      </div>
 
-            <div>
-                <label class="block text-sm font-medium text-gray-700">Password</label>
-                <input type="password" name="password" required
-                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-teal-400 focus:outline-none text-gray-700 text-sm">
-            </div>
+      <button type="submit" class="w-full text-white py-3 rounded-xl font-semibold text-sm glow-button mt-2">
+        Sign Up
+      </button>
+    </form>
 
-            <button type="submit"
-                class="w-full bg-blue-500 text-white py-2 rounded-lg font-medium text-sm hover:bg-teal-600 transition duration-200">
-                Sign Up
-            </button>
-        </form>
+    <!-- Login Link -->
+    <p class="text-center text-xs mt-4 text-gray-600">
+      Already have an account?
+      <a href="login.html" class="text-teal-500 font-medium hover:underline hover:text-teal-600 transition">Sign in</a>
+    </p>
+  </section>
 
-        <!-- Divider -->
-        <div class="flex items-center my-4">
-            <hr class="w-full border-gray-300">
-            <span class="px-2 text-gray-500 text-xs">or</span>
-            <hr class="w-full border-gray-300">
-        </div>
-
-        <!-- OAuth Signup -->
-        <div class="space-y-2">
-           
-            <button class=" social w-full border py-2 rounded-md text-teal-600 hover:bg-teal-50 hover:text-teal-700 transition-all text-xs"><i class="fa-brands fa-google"></i>
-                Sign Up with Google
-            </button>
-            <button class="w-full border py-2 rounded-md text-teal-600 hover:bg-teal-50 hover:text-teal-700 transition-all text-xs "><i class="fab fa-facebook-f"></i>
-                Sign Up with Facebook
-            </button></button>
-            <button class="w-full border py-2 rounded-md text-teal-600 hover:bg-teal-50 hover:text-teal-700 transition-all text-xs"><i class="fa-brands fa-apple"></i>
-                Sign Up with Apple
-            </button>
-        </div>
-
-        <!-- Login Link -->
-        <p class="text-center text-xs mt-4 text-gray-600">
-            Already have an account? <a href="login.html" class="text-teal-500 font-medium">Sign in</a>
-        </p>
-
+  <!-- Carousel Section -->
+  <section class="w-full max-w-3xl mx-auto mb-8 px-4">
+    <h3 class="text-xl md:text-2xl font-semibold text-teal-700 text-center mb-4 fade-slide">Daily Wellness Tips</h3>
+    <div class="relative bg-white bg-opacity-80 rounded-2xl p-6 shadow-lg carousel">
+      <div class="carousel-item active">
+        <p class="tip-text text-gray-600 text-center text-lg italic">Take 5 deep breaths to center yourself each morning.</p>
+      </div>
+      <div class="carousel-item">
+        <p class="tip-text text-gray-600 text-center text-lg italic">Write down one thing you’re grateful for today.</p>
+      </div>
+      <div class="carousel-item">
+        <p class="tip-text text-gray-600 text-center text-lg italic">Spend 10 minutes in nature to refresh your mind.</p>
+      </div>
+      <div class="flex justify-center gap-3 mt-6">
+        <span class="carousel-dot active" onclick="showSlide(0)"></span>
+        <span class="carousel-dot" onclick="showSlide(1)"></span>
+        <span class="carousel-dot" onclick="showSlide(2)"></span>
+      </div>
     </div>
+  </section>
 
+  <script>
+    function showSlide(index) {
+      const items = document.querySelectorAll('.carousel-item');
+      const dots = document.querySelectorAll('.carousel-dot');
+      items.forEach(item => item.classList.remove('active'));
+      dots.forEach(dot => dot.classList.remove('active'));
+      items[index].classList.add('active');
+      dots[index].classList.add('active');
+    }
+
+    let currentSlide = 0;
+    const totalSlides = 3;  // Total number of slides (you can add more if needed)
+    setInterval(() => {
+      currentSlide = (currentSlide + 1) % totalSlides;
+      showSlide(currentSlide);
+    }, 5000);
+  </script>
 </body>
 </html>

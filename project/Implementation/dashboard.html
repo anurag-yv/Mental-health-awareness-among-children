@@ -3,76 +3,323 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MindHorizon - Terms of Service</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>MindHorizon Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        /* Light Mode Gradient */
-        body.light-mode {
-            background: linear-gradient(135deg, #A1C4FD, #C2E9FB);
-            color: #333;
-            transition: background 0.5s ease-in-out;
+        /* Fullscreen Background */
+        body {
+            font-family: "Poppins", sans-serif;
+            text-align: center;
+            background: linear-gradient(to bottom, #27e7c0, #08fecd);
+            margin: 0;
+            padding: 0;
+            color: white;
+            overflow-x: hidden; /* Prevent horizontal scrolling */
         }
 
-        /* Dark Mode Gradient */
-        body.dark-mode {
-            background: linear-gradient(135deg, #232526, #414345);
-            color: #fff;
-            transition: background 0.5s ease-in-out;
+        /* Main Container */
+        .container {
+            max-width: 100%;
+            margin: auto;
+            padding: 40px;
+            box-sizing: border-box; /* Ensure padding doesn't push content out */
         }
 
-        /* Floating Dark Mode Toggle */
-        .toggle-theme {
-            position: fixed;
-            top: 15px;
-            right: 20px;
-            background: rgba(255, 255, 255, 0.7);
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        /* Title */
+        h1 {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 25px;
+        }
+
+        /* Dropdown */
+        .dropdown-container {
+            margin: 20px 0;
+        }
+
+        select {
+            padding: 14px;
+            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: rgb(32, 152, 154);
+            font-size: 18px;
+            font-weight: bold;
+            outline: none;
             cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            transition: background 0.3s ease-in-out;
+            border: none;
         }
 
-        .dark-mode .toggle-theme {
-            background: rgba(0, 0, 0, 0.7);
+        /* Cards */
+        .card {
+            background: white;
+            color: #333;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 5px 12px rgba(0, 0, 0, 0.2);
+            margin: 20px 0;
+        }
+
+        /* Graph Container */
+        .graph-container {
+            width: 100%;
+            height: 400px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        /* Mood Score */
+        .mood-score {
+            font-size: 24px;
+            font-weight: bold;
+            padding: 15px 25px;
+            border-radius: 12px;
+            display: inline-block;
+            margin-top: 20px;
+            background-color: white;
+            color: #333;
+        }
+
+        /* Alert */
+        .alert {
+            padding: 14px;
+            font-size: 20px;
+            font-weight: bold;
+            color: white;
+            background-color: rgba(255, 69, 58, 0.9);
+            display: none;
+            border-radius: 8px;
+        }
+
+        /* Prescription Section */
+        .prescription-card {
+            background: #f0f8ff;
+            color: #333;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0px 5px 12px rgba(0, 0, 0, 0.2);
+            margin: 20px 0;
+            text-align: left;
+            font-size: 18px;
+        }
+
+        /* Grid Layout */
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr; /* One column by default */
+            gap: 30px;
+            margin-top: 25px;
+        }
+
+        @media (min-width: 768px) {
+            .grid-container {
+                grid-template-columns: 1fr 1fr; /* Two columns on larger screens */
+            }
         }
     </style>
 </head>
-<body class="light-mode">
+<body>
 
-    <!-- Dark Mode Toggle Button -->
-    <div class="toggle-theme" onclick="toggleDarkMode()">🌙</div>
+    <div class="container">
+        <h1>🧠 MindHorizon Mood Analysis</h1>
 
-    <!-- Header -->
-    <header class="py-6 text-center text-3xl font-bold shadow-md bg-opacity-80">
-        MindHorizon - Terms of Service
-    </header>
+        <div class="dropdown-container">
+            <label for="timeFilter">View Data:</label>
+            <select id="timeFilter">
+                <option value="daily">Daily 📅</option>
+                <option value="weekly">Weekly 📆</option>
+                <option value="monthly">Monthly 📊</option>
+                <option value="yearly">Yearly 📅</option>
+            </select>
+        </div>
 
-    <!-- Content Section -->
-    <section class="px-6 py-12 max-w-5xl mx-auto">
-        <h2 class="text-2xl font-bold mb-6">Welcome to MindHorizon</h2>
-        <p class="mb-4">By using MindHorizon, you agree to follow these terms to ensure a safe and supportive environment.</p>
+        <div class="grid-container">
+            <div class="card">
+                <h2>Current Mood Score</h2>
+                <div class="graph-container">
+                    <canvas id="currentScoreChart"></canvas>
+                </div>
+            </div>
 
-        <h3 class="text-xl font-semibold mt-6">1. User Responsibilities</h3>
-        <p class="mb-4">Users must engage respectfully and avoid any misuse of the platform.</p>
+            <div class="card">
+                <h2>Mood Trends Over Time</h2>
+                <div class="graph-container">
+                    <canvas id="moodTrendsChart"></canvas>
+                </div>
+            </div>
+        </div>
 
-        <h3 class="text-xl font-semibold mt-6">2. Data Privacy</h3>
-        <p class="mb-4">We prioritize user privacy and secure all collected data.</p>
+        <!-- Current Mental Status -->
+        <div class="card">
+            <h2>Current Mental Status</h2>
+            <span id="mentalStatus" class="mood-score">--</span>
+        </div>
 
-        <h3 class="text-xl font-semibold mt-6">3. Mental Health Advisory</h3>
-        <p class="mb-4">MindHorizon provides support but does not replace professional medical help.</p>
+        <!-- Prescription Section -->
+        <div class="prescription-card">
+            <h2>📝 Prescription & Recommendations</h2>
+            <p id="prescriptionText">--</p>
+        </div>
 
-        <h3 class="text-xl font-semibold mt-6">4. Service Limitations</h3>
-        <p class="mb-4">We strive for accuracy but do not guarantee uninterrupted service.</p>
-    </section>
+        <div id="diagnosisAlert" class="alert"></div>
+    </div>
 
     <script>
-        function toggleDarkMode() {
-            document.body.classList.toggle('dark-mode');
+        document.getElementById('timeFilter').addEventListener('change', fetchData);
+        fetchData();
+
+        async function fetchData() {
+            const timeFilter = document.getElementById('timeFilter').value;
+            try {
+                const response = await fetch(`http://localhost/Project%20Team%20Weaver/project/php/dashboard.php?time_filter=${timeFilter}`);
+                const data = await response.json();
+                console.log("Fetched Data:", data);
+
+                updateCurrentScoreChart(data.latest_score);
+                updateMoodTrendsChart(data.trend.labels, data.trend.scores);
+                updateDiagnosisAlert(data.latest_score);
+                updateMentalStatus(data.latest_score);
+                updatePrescription(data.latest_score);
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        }
+
+        function updateCurrentScoreChart(score) {
+            const ctx = document.getElementById("currentScoreChart").getContext("2d");
+            new Chart(ctx, {
+                type: "bar",
+                data: {
+                    labels: ["Current Mood Score"],
+                    datasets: [{
+                        label: "Current Score",
+                        data: [score || 0],
+                        backgroundColor: "rgba(38, 198, 218, 0.7)", // Gradient color for the bar
+                        borderColor: "rgba(38, 198, 218, 1)",
+                        borderWidth: 2,
+                        hoverBackgroundColor: "rgba(38, 198, 218, 1)",
+                        hoverBorderColor: "rgba(38, 198, 218, 1)"
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: { display: false },
+                        y: { 
+                            beginAtZero: true,
+                            max: 5,
+                            ticks: {
+                                stepSize: 1
+                            }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(tooltipItem) {
+                                    return 'Score: ' + tooltipItem.raw;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateMoodTrendsChart(labels, scores) {
+            const ctx = document.getElementById("moodTrendsChart").getContext("2d");
+            new Chart(ctx, {
+                type: "line",
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: "Mood Score (1 - 4)",
+                        data: scores,
+                        borderColor: "#009688",
+                        borderWidth: 3,
+                        fill: true,
+                        backgroundColor: "rgba(38, 198, 218, 0.3)", // Gradient fill under the line
+                        tension: 0.4,
+                        pointStyle: 'circle',
+                        pointRadius: 6,
+                        pointBackgroundColor: '#009688'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: { 
+                            beginAtZero: true,
+                            max: 5,
+                            ticks: {
+                                stepSize: 1
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Time Period',
+                                color: '#009688',
+                                font: {
+                                    weight: 'bold'
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top'
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(tooltipItem) {
+                                    return 'Score: ' + tooltipItem.raw;
+                                }
+                            }
+                        }
+                    },
+                    animation: {
+                        duration: 1500
+                    }
+                }
+            });
+        }
+
+        function updateDiagnosisAlert(score) {
+            const alertBox = document.getElementById("diagnosisAlert");
+            if (score === null) {
+                alertBox.style.display = "none";
+                return;
+            }
+
+            if (score <= 2) {
+                alertBox.innerHTML = "⚠️ Warning: Possible Anxiety Symptoms. Please consider self-care or professional help.";
+                alertBox.style.display = "block";
+            } else {
+                alertBox.style.display = "none";
+            }
+        }
+
+        function updateMentalStatus(score) {
+            const statusElement = document.getElementById("mentalStatus");
+
+            if (score >= 3.5) {
+                statusElement.innerText = "Stable Mood 😊";
+                statusElement.style.backgroundColor = "#00796b";
+            } else if (score >= 2.5) {
+                statusElement.innerText = "Mild Stress 😐";
+                statusElement.style.backgroundColor = "#ffcc00";
+            } else {
+                statusElement.innerText = "Possible Anxiety Symptoms 😟";
+                statusElement.style.backgroundColor = "#ff4d4d";
+            }
+
+            statusElement.style.color = "white";
+        }
+
+        function updatePrescription(score) {
+            const prescriptionText = document.getElementById("prescriptionText");
+            prescriptionText.innerHTML = score >= 3 ? "✅ Keep up healthy habits!" : "⚠️ Try relaxation techniques and seek help if needed.";
         }
     </script>
 

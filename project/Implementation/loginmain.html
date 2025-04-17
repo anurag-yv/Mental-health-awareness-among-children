@@ -3,33 +3,173 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MindHorizon - Wellness Platform</title>
+    <title>MindHorizon | Joyful Mental Wellness</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Comfortaa', cursive;
+            background-color: #f4f9f9;
+            color: #34d399;
+        }
+        
+        .bounce {
+            animation: bounce 6s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        .breathing {
+            animation: breathing 8s ease-in-out infinite;
+        }
+        
+        @keyframes breathing {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+        }
+        
+        .btn-float {
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-float:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .wave {
+            animation: wave 12s linear infinite;
+        }
+        
+        @keyframes wave {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(1.5deg); }
+            50% { transform: rotate(0deg); }
+            75% { transform: rotate(-1.5deg); }
+            100% { transform: rotate(0deg); }
+        }
+
+        /* Enhanced responsiveness */
+        @media (max-width: 640px) {
+            .header-logo {
+                width: 10vw;
+                height: 10vw;
+                min-width: 40px;
+                min-height: 40px;
+            }
+            h1 {
+                font-size: clamp(1.5rem, 6vw, 1.8rem);
+            }
+            h2 {
+                font-size: clamp(1.8rem, 8vw, 2.5rem);
+            }
+            p {
+                font-size: clamp(0.9rem, 4vw, 1rem);
+            }
+            .btn-float {
+                padding: 0.75rem 1.5rem;
+                font-size: clamp(0.85rem, 3.5vw, 0.95rem);
+            }
+            .feature-card {
+                padding: 1rem;
+            }
+            .feature-card img {
+                width: 60px;
+                height: 60px;
+            }
+        }
+        
+    </style>
 </head>
-<body class="bg-gradient-to-b from-teal-100 to-lime-100 min-h-screen flex flex-col items-center justify-center p-6 text-gray-800">
+<body class="min-h-screen flex flex-col">
 
-    <!-- Full Page Content -->
-    <div class="w-full h-full flex flex-col justify-center items-center text-center">
-
-        <!-- Logo & Branding -->
-        <div class="mb-6 animate__animated animate__fadeInUp">
-            <img src="https://via.placeholder.com/90x90" alt="MindHorizon Logo" class="w-32 mx-auto rounded-full shadow-xl" aria-hidden="true">
-            <h1 class="text-6xl sm:text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-teal-500 to-purple-400 mt-4">MindHorizon</h1>
-            <p class="text-xl sm:text-2xl text-gray-700 mt-3">Your journey to mental wellness begins here.</p>
+    <!-- Header -->
+    <header class="py-4 px-4 sm:px-6 lg:px-12 bg-teal-50">
+        <div class="flex items-center">
+            <div class="header-logo w-12 h-12 rounded-xl bg-gradient-to-br from-teal-300 to-teal-500 flex items-center justify-center text-white text-xl font-bold mr-3">
+                🌈
+            </div>
+            <h1 class="text-xl sm:text-2xl font-bold text-teal-800">Mind<span class="text-teal-700">Horizon</span></h1>
         </div>
+    </header>
 
-        <!-- Action Buttons -->
-        <div class="flex flex-col space-y-6 mt-16 animate__animated animate__fadeInUp">
-            <a href="register.html" class="bg-gradient-to-r from-teal-500 to-lime-400 text-white px-8 py-4 rounded-lg text-lg font-semibold shadow-lg hover:from-teal-600 hover:to-lime-500 transition-all transform hover:scale-105 duration-300">
-                Create Account
-            </a>
-            <a href="login.html" class="border-2 border-teal-500 px-8 py-4 rounded-lg text-lg font-semibold text-teal-500 hover:bg-teal-500 hover:text-white transition-all transform hover:scale-105 duration-300">
-                Sign In
-            </a>
+    <!-- Main Content -->
+    <main class="flex-grow flex items-center justify-center px-4 sm:px-6 py-12 sm:py-20">
+        <div class="max-w-5xl w-full">
+            <div class="flex flex-col lg:flex-row items-center">
+                <div class="lg:w-1/2 mb-8 lg:mb-0 text-center lg:text-left">
+                    <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-teal-900 mb-4 sm:mb-6 leading-tight">
+                        Find your <span class="text-teal-700">happy place</span> within
+                    </h2>
+                    <p class="text-base sm:text-lg text-teal-700 mb-6 sm:mb-8 max-w-md mx-auto lg:mx-0">
+                        Gentle tools to help you breathe, reflect, and grow at your own pace.
+                    </p>
+                    <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 justify-center lg:justify-start">
+                        <a href="register.html" class="bg-teal-600 hover:bg-teal-700 text-white px-6 sm:px-8 py-2.5 sm:py-3 rounded-full font-medium btn-float transition-all">
+                            Begin Journey
+                        </a>
+                        <a href="login.html" class="border-2 border-teal-600 text-teal-700 hover:bg-teal-50 px-6 sm:px-8 py-2.5 sm:py-3 rounded-full font-medium btn-float transition-all">
+                            Sign In
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="lg:w-1/2 relative breathing">
+                    <img src="https://cdn-icons-png.flaticon.com/512/5996/5996830.png" alt="Peaceful meditation illustration" class="w-full max-w-xs sm:max-w-sm md:max-w-md mx-auto bounce">
+                </div>
+            </div>
         </div>
+    </main>
 
-        <!-- Footer / Accessibility -->
-        <p class="text-gray-600 text-sm mt-6">Designed for accessibility and ease of use. <span class="font-semibold">Welcome to your journey!</span></p>
+    <!-- Features -->
+    <section class="py-12 sm:py-16 px-4 sm:px-6 bg-teal-50 wave">
+        <div class="max-w-5xl mx-auto">
+            <h3 class="text-xl sm:text-2xl font-bold text-center text-teal-800 mb-8 sm:mb-12">Simple Practices, <span class="text-teal-400">Big Changes</span></h3>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
+                <div class="feature-card text-center p-4 sm:p-6 rounded-xl bg-teal-100">
+                    <div class="w-16 sm:w-20 h-16 sm:h-20 mx-auto mb-3 sm:mb-4">
+                        <img src="https://cdn-icons-png.flaticon.com/512/2936/2936886.png" alt="Breathing exercise" class="w-full h-full object-contain">
+                    </div>
+                    <h4 class="font-bold text-base sm:text-lg mb-2 text-teal-700">Breathe With Me</h4>
+                    <p class="text-teal-700 text-sm sm:text-base">Guided breathing exercises to calm your mind</p>
+                </div>
+                
+                <div class="feature-card text-center p-4 sm:p-6 rounded-xl bg-teal-100">
+                    <div class="w-16 sm:w-20 h-16 sm:h-20 mx-auto mb-3 sm:mb-4">
+                        <img src="https://cdn-icons-png.flaticon.com/512/4100/4100477.png" alt="Journal" class="w-full h-full object-contain">
+                    </div>
+                    <h4 class="font-bold text-base sm:text-lg mb-2 text-teal-800">Gentle Journal</h4>
+                    <p class="text-teal-700 text-sm sm:text-base">Reflective prompts without pressure</p>
+                </div>
+                
+                <div class="feature-card text-center p-4 sm:p-6 rounded-xl bg-teal-100">
+                    <div class="w-16 sm:w-20 h-16 sm:h-20 mx-auto mb-3 sm:mb-4">
+                        <img src="https://cdn-icons-png.flaticon.com/512/4100/4100525.png" alt="Progress" class="w-full h-full object-contain">
+                    </div>
+                    <h4 class="font-bold text-base sm:text-lg mb-2 text-teal-800">Tiny Wins</h4>
+                    <p class="text-teal-700 text-sm sm:text-base">Celebrate small steps forward</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-6 sm:py-8 px-4 sm:px-6 bg-teal-100 text-center">
+        <p class="text-teal-700 text-sm sm:text-base">Made with ❤️ for your wellbeing</p>
+    </footer>
+
+    <!-- Floating Cloud -->
+    <div class="fixed bottom-0 left-0 w-full pointer-events-none">
+        <svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg" class="w-full h-auto">
+            <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" fill="#34d399"></path>
+            <path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5" fill="#34d399"></path>
+            <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="#4fd1c5"></path>
+        </svg>
     </div>
 
 </body>
