@@ -6,6 +6,7 @@
   <title>MindHorizon - Nurturing Young Minds</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     /* General Styling */
     body {
@@ -13,6 +14,22 @@
       font-family: 'Poppins', sans-serif;
       overflow-x: hidden;
       line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+
+    /* Scrollbar Styling */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f0f7f4;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #10b981;
+      border-radius: 5px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #0d9f6e;
     }
 
     /* Slider Styling */
@@ -22,7 +39,7 @@
       height: 400px;
       overflow: hidden;
       z-index: 0;
-      border-bottom: 8px solid #10b981;
+      border-bottom: 8px solid #3e4a59;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     }
 
@@ -52,7 +69,7 @@
       object-fit: cover;
       object-position: center;
       border-radius: 0 0 40px 40px;
-      filter: brightness(0.95);
+      filter: brightness(0.85);
     }
 
     .slide-text {
@@ -61,7 +78,7 @@
       left: 40px;
       transform: translateY(-50%);
       color: #fff;
-      font-size: 1.90rem;
+      font-size: 1.81rem;
       font-weight: 800;
       text-align: left;
       text-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
@@ -70,8 +87,10 @@
       opacity: 0;
       animation: slideIn 1.5s ease-out 0.5s forwards;
       line-height: 1.3;
-      /* background: linear-gradient(135deg, rgba(16, 185, 129, 0.3), rgba(52, 211, 153, 0.2)); */
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.3), rgba(52, 211, 153, 0.2));
       border-radius: 20px;
+      /* backdrop-filter: blur(1px); */
+      border-left: 4px solid rgba(255,255,255,0.3);
     }
     @keyframes slideIn {
       0% { opacity: 0; transform: translateY(-50%) translateX(-60px); }
@@ -79,18 +98,18 @@
     }
 
     @media (max-width: 768px) {
-      .slide-text { font-size: 1.75rem; max-width: 55%; }
+      .slide-text { font-size: 1.5rem; max-width: 70%; }
     }
 
     @media (max-width: 640px) {
-      .slide-text { font-size: 1.25rem; max-width: 60%; padding: 1rem; }
+      .slide-text { font-size: 1.2rem; max-width: 80%; padding: 1rem; }
     }
 
     .slider-nav {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      background: rgba(255, 255, 255, 0.2); /* Transparent background */
+      background: rgba(255, 255, 255, 0.3);
       color: #fff;
       border: 2px solid rgba(255, 255, 255, 0.5);
       padding: 12px 16px;
@@ -99,17 +118,23 @@
       z-index: 10;
       border-radius: 50%;
       transition: all 0.3s ease;
-      backdrop-filter: blur(5px); /* Adds a frosted glass effect */
+      backdrop-filter: blur(5px);
     }
 
     .slider-nav:hover {
-      background: rgba(52, 211, 153, 0.4);
+      background: rgba(52, 211, 153, 0.6);
       border-color: #34d399;
       transform: translateY(-50%) scale(1.1);
     }
 
     .slider-nav.left { left: 40px; }
     .slider-nav.right { right: 40px; }
+
+    @media (max-width: 640px) {
+      .slider-nav.left { left: 15px; }
+      .slider-nav.right { right: 15px; }
+      .slider-nav { padding: 8px 12px; font-size: 1.25rem; }
+    }
 
     .slider-dots {
       position: absolute;
@@ -151,6 +176,32 @@
       background: #34d399;
       color: #fff;
       transform: scale(1.1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Floating Action Button */
+    .fab-button {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, #10b981, #34d399);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.5rem;
+      box-shadow: 0 4px 20px rgba(16, 185, 129, 0.4);
+      z-index: 100;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .fab-button:hover {
+      transform: scale(1.1) rotate(10deg);
+      box-shadow: 0 6px 25px rgba(16, 185, 129, 0.6);
     }
 
     /* Content Section */
@@ -165,7 +216,7 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      background: #fff; /* Clean white background */
+      background: #fff;
     }
 
     .nurturing-container {
@@ -194,7 +245,7 @@
       left: 50%;
       transform: translateX(-50%);
       width: 180px;
-      height: 4px; /* Reduced thickness */
+      height: 4px;
       background: linear-gradient(to right, #10b981, #34d399);
       border-radius: 2px;
     }
@@ -224,18 +275,38 @@
       width: 100%;
       max-width: 450px;
       margin-top: 3rem;
-      border-radius: 20px; /* Subtle rounding */
-      transition: transform 0.4s ease;
+      border-radius: 20px;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     }
 
     .content-img:hover {
-      transform: scale(1.05);
+      transform: scale(1.05) rotate(-2deg);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
     }
 
     /* Extra Sections */
     .extra-section {
       background: #f9fafb;
       padding: 6rem 2rem;
+    }
+
+    .section-heading {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 4rem;
+    }
+
+    .section-heading::after {
+      content: '';
+      position: absolute;
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(to right, #10b981, #34d399);
+      border-radius: 2px;
     }
 
     .extra-card {
@@ -289,9 +360,24 @@
       100% { transform: scale(1); }
     }
 
+    /* Testimonials Section */
     .testimonial-section {
       background: #fff;
       padding: 6rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .testimonial-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80') center/cover;
+      opacity: 0.03;
+      z-index: 0;
     }
 
     .testimonial-card {
@@ -303,6 +389,7 @@
       transition: all 0.3s ease;
       position: relative;
       overflow: hidden;
+      z-index: 1;
     }
 
     .testimonial-card::before {
@@ -338,6 +425,71 @@
       margin-right: 1.5rem;
     }
 
+    /* Stats Section */
+    .stats-section {
+      background: linear-gradient(135deg, #10b981, #34d399);
+      padding: 6rem 2rem;
+      color: white;
+    }
+
+    .stat-card {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(5px);
+      border-radius: 20px;
+      padding: 2.5rem;
+      text-align: center;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .stat-card:hover {
+      transform: translateY(-10px);
+      background: rgba(255, 255, 255, 0.25);
+    }
+
+    .stat-number {
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .stat-label {
+      font-size: 1.2rem;
+      opacity: 0.9;
+    }
+
+    /* Newsletter Section */
+    .newsletter-section {
+      background: #f0f7f4;
+      padding: 6rem 2rem;
+    }
+
+    .newsletter-container {
+      max-width: 700px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 20px;
+      padding: 3rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      text-align: center;
+    }
+
+    .newsletter-input {
+      width: 100%;
+      padding: 1rem 1.5rem;
+      border: 2px solid #e2e8f0;
+      border-radius: 50px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      margin-bottom: 1rem;
+    }
+
+    .newsletter-input:focus {
+      outline: none;
+      border-color: #10b981;
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+    }
+
     /* Footer */
     .footer-icon {
       transition: all 0.3s ease;
@@ -357,61 +509,157 @@
       40% { transform: translateY(-10px); }
       60% { transform: translateY(-5px); }
     }
+
+    /* Back to Top Button */
+    .back-to-top {
+      position: fixed;
+      bottom: 100px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      background: rgba(16, 185, 129, 0.8);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      opacity: 0;
+      visibility: hidden;
+      z-index: 99;
+    }
+
+    .back-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .back-to-top:hover {
+      background: #10b981;
+      transform: translateY(-5px);
+    }
+
+    /* Loading Animation */
+    .loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #f0f7f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 0.5s ease;
+    }
+
+    .loader-content {
+      text-align: center;
+    }
+
+    .loader-spinner {
+      width: 50px;
+      height: 50px;
+      border: 5px solid rgba(16, 185, 129, 0.2);
+      border-radius: 50%;
+      border-top-color: #10b981;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 20px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      .nurturing-content h2 {
+        font-size: 2.5rem;
+      }
+      .nurturing-content p {
+        font-size: 1.2rem;
+      }
+      .extra-card, .testimonial-card {
+        padding: 2rem;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nurturing-content h2 {
+        font-size: 2rem;
+      }
+      .nurturing-content p {
+        font-size: 1rem;
+      }
+    }
   </style>
 </head>
 <body>
+  <!-- Loading Screen -->
+  <div class="loader">
+    <div class="loader-content">
+      <div class="loader-spinner"></div>
+      <h2 class="text-green-600 font-bold text-xl">MindHorizon</h2>
+      <p class="text-gray-600 mt-2">Nurturing Young Minds</p>
+    </div>
+  </div>
+
   <!-- Header -->
-  <header class="bg-green-500 text-white shadow-lg">
-    <div class="container mx-auto flex justify-between items-center py-5 px-4 sm:px-6">
+  <header class="bg-green-500 text-white shadow-lg fixed w-full z-50">
+    <div class="container mx-auto flex justify-between items-center py-4 px-4 sm:px-6">
       <h1 class="text-2xl sm:text-3xl font-bold flex items-center">
-        <i class="fas fa-leaf mr-3 text-white header-icon"></i> MindHorizon
+        MindHorizon
       </h1>
       <nav>
         <ul class="flex space-x-4 sm:space-x-8 text-base sm:text-lg">
           <li><a href="About_page.html" class="nav-button">About</a></li>
-          <!-- <li><a href="#" class="nav-button">Mindfulness</a></li>
-          <li><a href="#" class="nav-button">Blog</a></li> -->
-          <!-- <li><a href="programpage.html" class="nav-button">Program</a></li> -->
+          <li><a href="#how-it-works" class="nav-button">Features</a></li>
+          <li><a href="#testimonials" class="nav-button">Testimonials</a></li>
+          <li><a href="loginmain.html" class="nav-button bg-green-600 hover:bg-green-700">Login</a></li>
         </ul>
       </nav>
     </div>
   </header>
 
   <!-- Slider Section -->
-  <section class="relative w-full overflow-hidden mt-6">
+  <section class="relative w-full overflow-hidden pt-16">
     <div id="slider" class="relative w-full h-full">
       <div class="slide">
-        <img src="../images/image6.png" alt="Slide 2" />
+        <img src="../images/image6.png" alt="Happy children playing" />
         <div class="slide-text">
           Understanding and supporting mental well-being by building a compassionate, informed community that helps every child feel safe and valued.
         </div>
       </div>
       <div class="slide">
-        <img src="../images/image2.png" alt="Slide 3" />
+        <img src="../images/image2.png" alt="Child smiling" />
         <div class="slide-text">
           Taking a step towards a happier childhood by encouraging self-expression, confidence, and promoting resilience through thoughtful guidance.
         </div>
       </div>
       <div class="slide active">
-        <img src="../images/image00.png" alt="Slide 1" />
+        <img src="../images/image00.png" alt="Empowering young minds" />
         <div class="slide-text">
           Empowering young minds for a better future by supporting emotional well-being and growth while providing essential tools for a brighter tomorrow.
         </div>
       </div>
       <div class="slide">
-        <img src="../images/image03.png" alt="Slide 4" />
+        <img src="../images/image03.png" alt="Safe spaces for children" />
         <div class="slide-text">
           Creating safe spaces for children by fostering open communication and trust, ensuring emotional security and personal growth.
         </div>
       </div>
       <div class="slide">
-        <img src="../images/image4.png" alt="Slide 5" />
+        <img src="../images/image4.png" alt="Child expressing emotions" />
         <div class="slide-text">
           Helping kids express their emotions while encouraging self-awareness and understanding through a platform for healthy emotional development.
         </div>
       </div>
       <div class="slide">
-        <img src="../images/image5.png" alt="Slide 6" />
+        <img src="../images/image5.png" alt="Child with emotional strength" />
         <div class="slide-text">
           Guiding children towards emotional strength by equipping young minds with coping strategies for a foundation of lifelong well-being.
         </div>
@@ -423,12 +671,12 @@
   </section>
 
   <!-- Content Section -->
-  <section class="py-16 px-4 sm:px-6">
+  <section class="py-16 px-4 sm:px-6" id="home">
     <div class="content-section container mx-auto">
       <div class="nurturing-container">
         <div class="nurturing-content">
           <h2>Nurturing Young Minds</h2>
-          <p>MindHorizon provides a playful, engaging platform to assess and boost your child’s mental health, fostering resilience and joy every step of the way.</p>
+          <p>MindHorizon provides a playful, engaging platform to assess and boost your child's mental health, fostering resilience and joy every step of the way through interactive games and insightful analytics.</p>
           <button class="bg-gradient-to-r from-green-500 to-teal-500 text-white px-10 py-4 rounded-full text-lg font-bold shadow-lg hover:from-green-600 hover:to-teal-600 transition transform hover:scale-105">
             <a href="loginmain.html">Get Started!</a>
           </button>
@@ -438,10 +686,35 @@
     </div>
   </section>
 
-  <!-- How It Works Section -->
-  <section class="extra-section">
+  <!-- Stats Section -->
+  <section class="stats-section">
     <div class="container mx-auto px-4 sm:px-6">
-      <h2 class="text-3xl sm:text-4xl font-bold text-center text-green-600 mb-16 content-heading">
+      <h2 class="text-3xl sm:text-4xl font-bold text-center mb-16">Our Impact in Numbers</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="stat-card">
+          <div class="stat-number" id="happyKidsCounter">0</div>
+          <div class="stat-label">Happy Kids</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="parentsCounter">0</div>
+          <div class="stat-label">Engaged Parents</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="activitiesCounter">0</div>
+          <div class="stat-label">Interactive Activities</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="successCounter">0</div>
+          <div class="stat-label">Success Stories</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section class="extra-section" id="how-it-works">
+    <div class="container mx-auto px-4 sm:px-6">
+      <h2 class="text-3xl sm:text-4xl font-bold text-center text-green-600 mb-16 section-heading">
         How It Works
       </h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
@@ -449,21 +722,21 @@
           <div class="extra-card-content text-center">
             <i class="fas fa-gamepad extra-icon"></i>
             <h3 class="text-2xl font-semibold text-gray-800">Interactive Fun</h3>
-            <p class="text-gray-600 mt-6">Kids engage in colorful games and activities designed to assess their emotional well-being in a stress-free way.</p>
+            <p class="text-gray-600 mt-6">Kids engage in colorful games and activities designed to assess their emotional well-being in a stress-free way. Our playful interface makes mental health assessment enjoyable.</p>
           </div>
         </div>
         <div class="extra-card">
           <div class="extra-card-content text-center">
             <i class="fas fa-chart-line extra-icon"></i>
             <h3 class="text-2xl font-semibold text-gray-800">Insightful Reports</h3>
-            <p class="text-gray-600 mt-6">Parents receive detailed, easy-to-read reports to track progress and spot areas for support.</p>
+            <p class="text-gray-600 mt-6">Parents receive detailed, easy-to-read reports with visual analytics to track progress and spot areas for support. Understand your child's emotional landscape at a glance.</p>
           </div>
         </div>
         <div class="extra-card">
           <div class="extra-card-content text-center">
             <i class="fas fa-lightbulb extra-icon"></i>
             <h3 class="text-2xl font-semibold text-gray-800">Personalized Tips</h3>
-            <p class="text-gray-600 mt-6">Get tailored strategies and activities to nurture your child’s emotional growth and happiness.</p>
+            <p class="text-gray-600 mt-6">Get tailored strategies and activities based on your child's unique needs to nurture emotional growth and happiness. Customized recommendations for every family.</p>
           </div>
         </div>
       </div>
@@ -471,15 +744,15 @@
   </section>
 
   <!-- Testimonials Section -->
-  <section class="testimonial-section">
+  <section class="testimonial-section" id="testimonials">
     <div class="container mx-auto px-4 sm:px-6">
-      <h2 class="text-3xl sm:text-4xl font-bold text-center text-green-600 mb-16 content-heading">
+      <h2 class="text-3xl sm:text-4xl font-bold text-center text-green-600 mb-16 section-heading">
         Voices of Parents
       </h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
         <div class="testimonial-card">
           <div class="testimonial-card-content">
-            <p class="text-gray-700 mb-6">"My daughter loves the games, and I love how it helps us understand her better!"</p>
+            <p class="text-gray-700 mb-6">"My daughter loves the games, and I love how it helps us understand her better! The reports are so clear and actionable."</p>
             <p class="text-green-600 font-semibold flex items-center">
               <i class="fas fa-quote-left testimonial-icon"></i> Neha, Mom of 7-year-old
             </p>
@@ -487,7 +760,7 @@
         </div>
         <div class="testimonial-card">
           <div class="testimonial-card-content">
-            <p class="text-gray-700 mb-6">"The reports are so clear, and the tips really make a difference."</p>
+            <p class="text-gray-700 mb-6">"The reports are so clear, and the tips really make a difference. We've seen noticeable improvements in our son's confidence."</p>
             <p class="text-green-600 font-semibold flex items-center">
               <i class="fas fa-quote-left testimonial-icon"></i> Raj, Dad of 9-year-old
             </p>
@@ -495,7 +768,7 @@
         </div>
         <div class="testimonial-card">
           <div class="testimonial-card-content">
-            <p class="text-gray-700 mb-6">"It’s amazing to see my son open up through this platform!"</p>
+            <p class="text-gray-700 mb-6">"It's amazing to see my son open up through this platform! The activities are so engaging he doesn't even realize he's learning."</p>
             <p class="text-green-600 font-semibold flex items-center">
               <i class="fas fa-quote-left testimonial-icon"></i> Meera, Parent of 5-year-old
             </p>
@@ -505,28 +778,45 @@
     </div>
   </section>
 
+  <!-- Newsletter Section -->
+  <!-- <section class="newsletter-section">
+    <div class="newsletter-container">
+      <h2 class="text-3xl font-bold text-green-600 mb-6">Join Our Community</h2>
+      <p class="text-gray-600 mb-8">Subscribe to receive parenting tips, mental health resources, and updates about our platform.</p>
+      <form id="newsletterForm" class="flex flex-col sm:flex-row gap-4">
+        <input type="email" name="email" placeholder="Your email address" class="newsletter-input" required>
+        <button type="submit" class="bg-gradient-to-r from-green-500 to-teal-500 text-white px-8 py-3 rounded-full font-bold shadow-lg hover:from-green-600 hover:to-teal-600 transition transform hover:scale-105">
+          Subscribe
+        </button>
+      </form>
+      <div id="formMessage" class="mt-4 hidden"></div>
+      <p class="text-gray-500 text-sm mt-4">We respect your privacy. Unsubscribe at any time.</p>
+    </div>
+  </section> -->
+
   <!-- Footer -->
-  <footer class="bg-green-500 text-white py-14 px-4 sm:px-6">
+  <footer class="bg-green-600 text-white py-14 px-4 sm:px-6">
     <div class="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
       <div>
         <h3 class="text-xl font-bold flex items-center">
-          <i class="fas fa-tree mr-3 text-white"></i> MindHorizon
+           MindHorizon
         </h3>
         <p class="mt-6 text-gray-200">Empowering young minds with love, care, and fun since 2025!</p>
       </div>
       <div>
         <h3 class="text-xl font-bold">Quick Links</h3>
-        <ul class="mt-6 space-y-3 text-sm">
-          <li><a href="privacy_policy.html" class="text-gray-200 hover:text-white">Privacy Policy</a></li>
-          <li><a href="Term_of_services.html" class="text-gray-200 hover:text-white">Terms of Service</a></li>
+        <ul class="mt-6 space-y-3">
+          <li><a href="privacy_policy.html" class="text-gray-200 hover:text-white transition">Privacy Policy</a></li>
+          <li><a href="Term_of_services.html" class="text-gray-200 hover:text-white transition">Terms of Service</a></li>
+          <li><a href="About_page.html" class="text-gray-200 hover:text-white transition">About Us</a></li>
         </ul>
       </div>
       <div>
         <h3 class="text-xl font-bold">Explore More</h3>
-        <ul class="mt-6 space-y-3 text-sm">
-          <li><a href="homeintro.html" class="text-gray-200 hover:text-white">Home</a></li>
-          <!-- <li><a href="#" class="text-gray-200 hover:text-white">Mindfulness</a></li>
-          <li><a href="#" class="text-gray-200 hover:text-white">Blog</a></li> -->
+        <ul class="mt-6 space-y-3">
+          <li><a href="#home" class="text-gray-200 hover:text-white transition">Home</a></li>
+          <li><a href="#how-it-works" class="text-gray-200 hover:text-white transition">Features</a></li>
+          <li><a href="#testimonials" class="text-gray-200 hover:text-white transition">Testimonials</a></li>
         </ul>
       </div>
       <div>
@@ -535,6 +825,11 @@
           <a href="https://www.instagram.com" target="_blank" class="footer-icon text-gray-200 text-2xl"><i class="fab fa-instagram"></i></a>
           <a href="https://www.facebook.com" target="_blank" class="footer-icon text-gray-200 text-2xl"><i class="fab fa-facebook"></i></a>
           <a href="https://www.twitter.com" target="_blank" class="footer-icon text-gray-200 text-2xl"><i class="fab fa-twitter"></i></a>
+          <a href="https://www.linkedin.com" target="_blank" class="footer-icon text-gray-200 text-2xl"><i class="fab fa-linkedin"></i></a>
+        </div>
+        <div class="mt-6">
+          <p class="text-gray-200">info@mindhorizon.com</p>
+          <p class="text-gray-200 mt-2">(+91) 91000000XX</p>
         </div>
       </div>
     </div>
@@ -543,13 +838,38 @@
     </div>
   </footer>
 
-  <!-- Slider Script -->
+  <!-- Floating Action Button -->
+  <div class="fab-button" onclick="window.location.href='loginmain.html'">
+    <i class="fas fa-sign-in-alt"></i>
+  </div>
+
+  <!-- Back to Top Button -->
+  <div class="back-to-top" id="backToTop">
+    <i class="fas fa-arrow-up"></i>
+  </div>
+
+  <!-- Enhanced Slider Script -->
   <script>
+    // Loading screen
+    window.addEventListener('load', function() {
+      const loader = document.querySelector('.loader');
+      setTimeout(() => {
+        loader.style.opacity = '0';
+        setTimeout(() => {
+          loader.style.display = 'none';
+        }, 500);
+      }, 1500);
+    });
+
+    // Slider functionality
     const slides = document.querySelectorAll(".slide");
     const sliderDots = document.getElementById("sliderDots");
     let currentIndex = 0;
     let slideInterval;
+    let touchStartX = 0;
+    let touchEndX = 0;
 
+    // Create dots
     slides.forEach((_, index) => {
       const dot = document.createElement("button");
       dot.className = index === 0 ? "active" : "";
@@ -573,6 +893,13 @@
       slides[index].style.opacity = "1";
       slides[index].style.transform = "scale(1)";
       dots[index].classList.add("active");
+      
+      // Animate slide text
+      const activeText = slides[index].querySelector('.slide-text');
+      activeText.style.animation = 'none';
+      setTimeout(() => {
+        activeText.style.animation = 'slideIn 1.5s ease-out 0.5s forwards';
+      }, 10);
     }
 
     function nextSlide() {
@@ -608,27 +935,171 @@
     slider.addEventListener("mouseenter", () => clearInterval(slideInterval));
     slider.addEventListener("mouseleave", () => startInterval());
 
-    let touchStartX = 0;
-    let touchEndX = 0;
-
+    // Touch events for mobile
     slider.addEventListener("touchstart", (e) => {
       touchStartX = e.changedTouches[0].screenX;
+      clearInterval(slideInterval);
     });
 
     slider.addEventListener("touchend", (e) => {
       touchEndX = e.changedTouches[0].screenX;
       if (touchStartX - touchEndX > 50) {
         nextSlide();
-        resetInterval();
       }
       if (touchEndX - touchStartX > 50) {
         prevSlide();
-        resetInterval();
       }
+      resetInterval();
     });
 
+    // Initialize
     showSlide(currentIndex);
     startInterval();
+
+    // Counter animation for stats
+    function animateCounters() {
+      const happyKids = document.getElementById('happyKidsCounter');
+      const parents = document.getElementById('parentsCounter');
+      const activities = document.getElementById('activitiesCounter');
+      const success = document.getElementById('successCounter');
+      
+      const targetHappyKids = 1250;
+      const targetParents = 850;
+      const targetActivities = 75;
+      const targetSuccess = 320;
+      
+      const duration = 2000; // 2 seconds
+      const interval = 20; // update every 20ms
+      const steps = duration / interval;
+      
+      let happyKidsCount = 0;
+      let parentsCount = 0;
+      let activitiesCount = 0;
+      let successCount = 0;
+      
+      const happyKidsStep = targetHappyKids / steps;
+      const parentsStep = targetParents / steps;
+      const activitiesStep = targetActivities / steps;
+      const successStep = targetSuccess / steps;
+      
+      const counterInterval = setInterval(() => {
+        happyKidsCount += happyKidsStep;
+        parentsCount += parentsStep;
+        activitiesCount += activitiesStep;
+        successCount += successStep;
+        
+        happyKids.textContent = Math.floor(happyKidsCount);
+        parents.textContent = Math.floor(parentsCount);
+        activities.textContent = Math.floor(activitiesCount);
+        success.textContent = Math.floor(successCount);
+        
+        if (happyKidsCount >= targetHappyKids) {
+          happyKids.textContent = targetHappyKids + '+';
+          parents.textContent = targetParents + '+';
+          activities.textContent = targetActivities + '+';
+          success.textContent = targetSuccess + '+';
+          clearInterval(counterInterval);
+        }
+      }, interval);
+    }
+    
+    // Intersection Observer for counter animation
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateCounters();
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    
+    const statsSection = document.querySelector('.stats-section');
+    if (statsSection) {
+      observer.observe(statsSection);
+    }
+
+    // Back to top button
+    const backToTopButton = document.getElementById('backToTop');
+    
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        backToTopButton.classList.add('visible');
+      } else {
+        backToTopButton.classList.remove('visible');
+      }
+    });
+    
+    backToTopButton.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          const headerHeight = document.querySelector('header').offsetHeight;
+          const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+          
+          window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+
+    // Navbar scroll effect
+    const header = document.querySelector('header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('shadow-xl');
+        header.classList.remove('bg-green-500');
+        header.classList.add('bg-green-600');
+      } else {
+        header.classList.remove('shadow-xl');
+        header.classList.add('bg-green-500');
+        header.classList.remove('bg-green-600');
+      }
+    });
+    document.getElementById('newsletterForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const form = e.target;
+    const formData = new FormData(form);
+    const messageDiv = document.getElementById('formMessage');
+    
+    fetch('subscribe.php', {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+      messageDiv.textContent = data.message;
+      messageDiv.className = data.success ? 'text-green-600 mt-4' : 'text-red-600 mt-4';
+      messageDiv.classList.remove('hidden');
+      
+      if (data.success) {
+        form.reset();
+        setTimeout(() => {
+          messageDiv.classList.add('hidden');
+        }, 5000);
+      }
+    })
+    .catch(error => {
+      messageDiv.textContent = 'An error occurred. Please try again.';
+      messageDiv.className = 'text-red-600 mt-4';
+      messageDiv.classList.remove('hidden');
+    });
+  });
   </script>
 </body>
 </html>

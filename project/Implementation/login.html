@@ -2,40 +2,150 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MindBloom - Login</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MindHorizon - Login</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Floating bubbles animation */
+    .bubble {
+      position: absolute;
+      border-radius: 9999px;
+      opacity: 0.3;
+      animation: float 10s infinite ease-in-out;
+    }
+
+    .bubble:nth-child(1) {
+      width: 100px;
+      height: 100px;
+      background: #60a5fa;
+      top: 20%;
+      left: 10%;
+      animation-delay: 0s;
+    }
+
+    .bubble:nth-child(2) {
+      width: 150px;
+      height: 150px;
+      background: #34d399;
+      bottom: 15%;
+      right: 15%;
+      animation-delay: 2s;
+    }
+
+    .bubble:nth-child(3) {
+      width: 80px;
+      height: 80px;
+      background: #facc15;
+      top: 60%;
+      left: 50%;
+      animation-delay: 4s;
+    }
+
+    .bubble:nth-child(4) {
+      width: 120px;
+      height: 120px;
+      background: #38bdf8;
+      bottom: 5%;
+      left: 25%;
+      animation-delay: 6s;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 0.3;
+      }
+      50% {
+        transform: translateY(-30px) scale(1.05);
+        opacity: 0.5;
+      }
+      100% {
+        transform: translateY(0) scale(1);
+        opacity: 0.3;
+      }
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .slide-in {
+      animation: slideIn 1s ease-out forwards;
+    }
+
+    .glass {
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2);
+    }
+  </style>
 </head>
-<body class="min-h-screen bg-gradient-to-r from-blue-200 via-teal-200 to-green-200 flex justify-center items-center p-6">
+<body class="min-h-screen bg-gradient-to-br from-blue-100 via-green-100 to-yellow-100 flex items-center justify-center p-6 overflow-hidden relative">
 
-    <!-- Login Form Container -->
-    <div class="bg-white shadow-xl rounded-lg p-8 w-full sm:w-96">
-        <h2 class="text-4xl font-semibold text-center text-teal-600 mb-6">MindHorizon</h2>
-        <p class="text-center text-lg text-gray-600 mb-4">Welcome back! Please login to your account.</p>
+  <!-- Animated Bubbles Background -->
+  <div class="bubble"></div>
+  <div class="bubble"></div>
+  <div class="bubble"></div>
+  <div class="bubble"></div>
 
-        <!-- Login Form -->
-        <form method="POST" action="http://localhost/Project%20Team%20Weaver/project/php/login.php" class="flex flex-col space-y-6 mt-4">
+  <!-- Login Card -->
+  <div class="glass rounded-3xl p-10 w-full max-w-md slide-in z-10">
 
-            <input type="email" name="email" placeholder="Enter your email" required
-                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-400 focus:outline-none text-gray-700 text-lg">
-
-            <input type="password" name="password" placeholder="Enter your password" required
-                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-400 focus:outline-none text-gray-700 text-lg">
-
-            <button type="submit" 
-                class="w-full bg-teal-500 text-white py-3 rounded-lg font-medium text-lg hover:bg-teal-600 transition duration-200">
-                Login
-            </button>
-
-        </form>
-
-        <!-- Register & Forgot Password Links -->
-        <div class="mt-6 text-center">
-            <p class="text-gray-600">Don't have an account? <a href="register.html" class="text-teal-500 font-semibold hover:underline">Sign Up</a></p>
-            <p class="text-gray-600 mt-2"><a href="forgot-password.html" class="text-teal-500 font-semibold hover:underline">Forgot Password?</a></p>
-        </div>
+    <!-- Header -->
+    <div class="text-center mb-8">
+      <h1 class="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-500 to-teal-500">
+        MindHorizon
+      </h1>
+      <p class="text-gray-600 text-lg mt-2">Sign in to continue your journey</p>
     </div>
+
+    <!-- Login Form -->
+    <form method="POST" action="http://localhost/Project%20Team%20Weaver/project/php/login.php" class="space-y-5">
+
+      <input
+        type="email"
+        name="email"
+        placeholder="Email"
+        required
+        class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-teal-400 focus:outline-none text-gray-700 text-base placeholder-gray-400 transition-all"
+      />
+
+      <input
+        type="password"
+        name="password"
+        placeholder="Password"
+        required
+        class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-teal-400 focus:outline-none text-gray-700 text-base placeholder-gray-400 transition-all"
+      />
+
+      <button
+        type="submit"
+        class="w-full bg-gradient-to-r from-teal-400 to-green-500 text-white py-3 rounded-xl font-semibold text-lg hover:scale-105 hover:shadow-lg transition-all duration-300 ease-in-out"
+      >
+        Login
+      </button>
+    </form>
+
+    <!-- Links -->
+    <div class="mt-6 text-center text-sm text-gray-600 space-y-2">
+      <p>
+        New here?
+        <a href="register.html" class="text-teal-600 font-medium hover:underline">Create account</a>
+      </p>
+      <p>
+        <a href="forgot-password.html" class="text-teal-600 font-medium hover:underline">Forgot password?</a>
+      </p>
+    </div>
+  </div>
 
 </body>
 </html>

@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Child Mental Health Helplines - India</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700&display=swap');
+        
+        body {
+            font-family: 'Baloo 2', cursive;
+            background: linear-gradient(135deg, #80a4bc 0%, #6a91ac 100%);
+        }
+        
+        .helpline-card {
+            transition: all 0.3s ease;
+            background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+            border-radius: 16px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .helpline-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .floating {
+            animation: floating 6s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .phone-icon {
+            filter: drop-shadow(0 4px 6px rgba(70, 63, 200, 0.3));
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Floating decorative elements -->
+    <div class="fixed top-20 left-10 w-16 h-16 rounded-full bg-blue-200 opacity-20 floating"></div>
+    <div class="fixed bottom-40 right-12 w-24 h-24 rounded-full bg-indigo-200 opacity-20 floating" style="animation-delay: 2s;"></div>
+    <div class="fixed top-1/3 right-1/4 w-20 h-20 rounded-full bg-sky-200 opacity-20 floating" style="animation-delay: 1s;"></div>
+    
+    <div class="container mx-auto px-4 py-12 relative z-10">
+        <!-- Header with animation -->
+        <div class="text-center mb-16 animate__animated animate__fadeInDown">
+            <div class="inline-block mb-6">
+                <svg class="w-20 h-20 mx-auto text-indigo-600 phone-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                </svg>
+            </div>
+            <h1 class="text-5xl font-bold text-indigo-800 mb-4">बच्चों के लिए मानसिक स्वास्थ्य सहायता</h1>
+            <h2 class="text-3xl font-semibold text-blue-800 mb-6">Child Mental Health Helplines</h2>
+            <p class="text-xl text-blue-700 max-w-3xl mx-auto">You're important. Your feelings matter. Reach out anytime.</p>
+        </div>
+        
+        <!-- Emergency banner -->
+        <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-12 rounded-r-lg flex items-center pulse-animation animate__animated animate__fadeIn">
+            <svg class="w-8 h-8 mr-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+            </svg>
+            <div>
+                <p class="font-bold">Emergency Contact: Dial <a href="tel:112" class="underline">112</a> (All India Emergency Number)</p>
+                <p class="text-sm">For immediate danger or life-threatening situations</p>
+            </div>
+        </div>
+        
+        <!-- Helpline cards grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20" id="helplineContainer">
+            <!-- Cards will be inserted here by JavaScript -->
+        </div>
+        
+        <!-- Additional resources section -->
+        <div class="bg-white rounded-2xl shadow-xl p-8 max-w-5xl mx-auto animate__animated animate__fadeInUp">
+            <h2 class="text-3xl font-bold text-indigo-700 mb-6 text-center">More Ways to Get Help</h2>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-amber-50 p-6 rounded-xl border-l-4 border-amber-400">
+                    <h3 class="text-xl font-semibold text-amber-800 mb-3">Chat Support</h3>
+                    <p class="text-amber-700 mb-4">Prefer texting? These services offer online chat support:</p>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-amber-600 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                            </svg>
+                            <span>Childline India: <a href="https://www.childlineindia.org" class="font-medium underline">www.childlineindia.org</a> (Chat option available)</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="bg-green-50 p-6 rounded-xl border-l-4 border-green-400">
+                    <h3 class="text-xl font-semibold text-green-800 mb-3">Self-Care Tips</h3>
+                    <p class="text-green-700 mb-4">While waiting to talk to someone:</p>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-green-600 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                            </svg>
+                            <span>Practice deep breathing (inhale 4 sec, hold 4 sec, exhale 6 sec)</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-green-600 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            <span>Write down your feelings in a journal</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-indigo-900 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p class="mb-2">You are not alone. It's okay to ask for help.</p>
+            <p class="text-indigo-300">© 2025 MindHorizon</p>
+        </div>
+    </footer>
+
+    <script>
+        $(document).ready(function() {
+            // Indian helpline data
+            const helplines = [
+                {
+                    name: "Childline India",
+                    number: "1098",
+                    hours: "24/7",
+                    languages: "Hindi, English + 8 regional languages",
+                    services: "All child-related concerns, abuse reporting, emotional support",
+                    icon: "child",
+                    color: "bg-blue-100",
+                    textColor: "text-blue-800"
+                },
+                {
+                    name: "Tele MANAS (Government of India)",
+                    number: "14416",
+                    hours: "24/7",
+                    languages: "Hindi, English + regional languages",
+                    services: "Mental health counseling, crisis support",
+                    icon: "mental-health",
+                    color: "bg-green-100",
+                    textColor: "text-green-800"
+                },
+                {
+                    name: "Vandrevala Foundation",
+                    number: "1860-2662-345 / 1800-2333-330",
+                    hours: "24/7",
+                    languages: "Hindi, English",
+                    services: "Depression, anxiety, suicidal thoughts",
+                    icon: "counseling",
+                    color: "bg-purple-100",
+                    textColor: "text-purple-800"
+                },
+                {
+                    name: "iCall (TISS Mumbai)",
+                    number: "9152987821",
+                    hours: "Mon-Sat, 10AM-8PM",
+                    languages: "Hindi, English",
+                    services: "Email/phone counseling for youth",
+                    icon: "email",
+                    color: "bg-amber-100",
+                    textColor: "text-amber-800"
+                },
+                {
+                    name: "AASRA Suicide Prevention",
+                    number: "9820466726",
+                    hours: "24/7",
+                    languages: "Hindi, English",
+                    services: "Suicide prevention, emotional support",
+                    icon: "emergency",
+                    color: "bg-red-100",
+                    textColor: "text-red-800"
+                },
+                {
+                    name: "Snehi Foundation",
+                    number: "011-65978181 / +91-9899011212",
+                    hours: "10AM-6:30PM (Mon-Sat)",
+                    languages: "Hindi, English",
+                    services: "Emotional distress, trauma support",
+                    icon: "support",
+                    color: "bg-teal-100",
+                    textColor: "text-teal-800"
+                }
+            ];
+
+            // Icons mapping
+            const icons = {
+                child: `<svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>`,
+                "mental-health": `<svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`,
+                counseling: `<svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>`,
+                email: `<svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>`,
+                emergency: `<svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>`,
+                support: `<svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>`
+            };
+
+            // Generate helpline cards
+            helplines.forEach((helpline, index) => {
+                $('#helplineContainer').append(`
+                    <div class="helpline-card ${helpline.color} ${helpline.textColor} animate__animated animate__fadeInUp" style="animation-delay: ${index * 0.1}s">
+                        <div class="p-6">
+                            <div class="flex items-start mb-4">
+                                <div class="p-3 rounded-full bg-white mr-4 shadow-sm">
+                                    ${icons[helpline.icon]}
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-bold">${helpline.name}</h3>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center my-5 bg-white p-3 rounded-lg shadow-inner">
+                                <svg class="w-8 h-8 text-indigo-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                                </svg>
+                                <div>
+                                    <a href="tel:${helpline.number.replace(/[^0-9+]/g, '')}" class="text-2xl font-bold hover:underline">${helpline.number}</a>
+                                </div>
+                            </div>
+                            
+                            <div class="text-sm space-y-2">
+                                <div class="flex items-start">
+                                    <svg class="w-4 h-4 mt-1 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                    <span><span class="font-medium">Hours:</span> ${helpline.hours}</span>
+                                </div>
+                                <div class="flex items-start">
+                                    <svg class="w-4 h-4 mt-1 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path>
+                                    </svg>
+                                    <span><span class="font-medium">Languages:</span> ${helpline.languages}</span>
+                                </div>
+                                <div class="flex items-start">
+                                    <svg class="w-4 h-4 mt-1 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                                    </svg>
+                                    <span><span class="font-medium">Services:</span> ${helpline.services}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `);
+            });
+
+            // Animate cards when they come into view
+            $(window).scroll(function() {
+                $('.helpline-card').each(function() {
+                    const cardTop = $(this).offset().top;
+                    const windowBottom = $(window).scrollTop() + $(window).height();
+                    
+                    if (cardTop < windowBottom) {
+                        $(this).addClass('animate__animated animate__fadeInUp');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

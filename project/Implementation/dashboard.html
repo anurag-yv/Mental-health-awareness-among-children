@@ -5,172 +5,432 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MindHorizon Dashboard</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Montserrat:wght@400;700&family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
     <style>
-        /* Fullscreen Background */
         body {
             font-family: "Poppins", sans-serif;
             text-align: center;
-            background: linear-gradient(to bottom, #27e7c0, #08fecd);
+            background: linear-gradient(135deg, #dad6e5 0%, #88d3ce 100%);
             margin: 0;
             padding: 0;
-            color: white;
-            overflow-x: hidden; /* Prevent horizontal scrolling */
+            color: #fff;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
         }
 
-        /* Main Container */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,%3Csvg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"%3E%3Ccircle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.2)" /%3E%3C/svg%3E');
+            background-size: 40px 40px;
+            opacity: 0.4;
+            z-index: 0;
+            animation: particleDrift 30s infinite linear;
+        }
+
         .container {
-            max-width: 100%;
+            max-width: 1400px;
             margin: auto;
-            padding: 40px;
-            box-sizing: border-box; /* Ensure padding doesn't push content out */
+            padding: 60px 20px;
+            box-sizing: border-box;
+            position: relative;
+            z-index: 1;
         }
 
-        /* Title */
         h1 {
-            font-size: 36px;
-            font-weight: bold;
-            margin-bottom: 25px;
+            font-family: "Comic Neue", cursive;
+            font-size: 60px;
+            font-weight: 700;
+            margin-bottom: 50px;
+            text-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+            background: linear-gradient(90deg, #1a5123, #1d5819);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            /* animation: bounceGlow 9s ease-in-out infinite; */
         }
 
-        /* Dropdown */
-        .dropdown-container {
-            margin: 20px 0;
-        }
-
-        select {
-            padding: 14px;
-            border-radius: 8px;
-            background-color: rgba(255, 255, 255, 0.2);
-            color: rgb(32, 152, 154);
-            font-size: 18px;
-            font-weight: bold;
-            outline: none;
-            cursor: pointer;
-            border: none;
-        }
-
-        /* Cards */
         .card {
-            background: white;
-            color: #333;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0px 5px 12px rgba(0, 0, 0, 0.2);
-            margin: 20px 0;
+            background: rgba(255, 255, 255, 0.15);
+            color: #e0e0e0;
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+            margin: 30px 0;
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+            backdrop-filter: blur(15px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
         }
 
-        /* Graph Container */
+        .card:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+        }
+
+        .card h2 {
+            font-family: "Montserrat", sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: #5336b0;
+            text-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+        }
+
         .graph-container {
             width: 100%;
-            height: 400px;
-            padding: 20px;
+            height: 450px;
+            padding: 30px;
             box-sizing: border-box;
+            background: rgba(0, 0, 0, 0.25);
+            border-radius: 25px;
+            box-shadow: inset 0 4px 12px rgba(0, 0, 0, 0.4);
         }
 
-        /* Mood Score */
         .mood-score {
-            font-size: 24px;
-            font-weight: bold;
-            padding: 15px 25px;
-            border-radius: 12px;
+            font-size: 28px;
+            font-weight: 700;
+            padding: 20px 40px;
+            border-radius: 35px;
             display: inline-block;
-            margin-top: 20px;
-            background-color: white;
-            color: #333;
+            margin-top: 30px;
+            background: linear-gradient(90deg, #e1d592, #ff6b6b);
+            color: #1a1a3d;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            cursor: pointer;
         }
 
-        /* Alert */
+        .mood-score:hover {
+            transform: scale(1.15);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        }
+
         .alert {
-            padding: 14px;
-            font-size: 20px;
-            font-weight: bold;
-            color: white;
-            background-color: rgba(255, 69, 58, 0.9);
+            padding: 20px;
+            font-size: 22px;
+            font-weight: 600;
+            color: #fff;
+            background: linear-gradient(90deg, #ff6b6b, #ff2e63);
             display: none;
-            border-radius: 8px;
+            border-radius: 20px;
+            margin: 30px 0;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            animation: pulse 1.5s infinite;
         }
 
-        /* Prescription Section */
         .prescription-card {
-            background: #f0f8ff;
-            color: #333;
-            padding: 25px;
-            border-radius: 15px;
-            box-shadow: 0px 5px 12px rgba(0, 0, 0, 0.2);
-            margin: 20px 0;
+            background: linear-gradient(135deg, #4ecdc4, #1e90ff);
+            color: #fff;
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+            margin: 30px 0;
             text-align: left;
-            font-size: 18px;
+            font-size: 20px;
+            transition: transform 0.5s ease;
         }
 
-        /* Grid Layout */
+        .prescription-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .doctor-advisory-card {
+            background: linear-gradient(135deg, #ff6b6b, #ffd700);
+            color: #fff;
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+            margin: 30px 0;
+            text-align: left;
+            font-size: 20px;
+            transition: transform 0.5s ease;
+        }
+
+        .doctor-advisory-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .doctor-advisory-card h2 {
+            font-family: "Montserrat", sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: #fff;
+            text-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .doctor-advisory-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .doctor-advisory-card li {
+            padding: 15px 0;
+            position: relative;
+            padding-left: 35px;
+            animation: fadeIn 0.6s ease-in-out;
+            animation-fill-mode: both;
+        }
+
+        .doctor-advisory-card li::before {
+            content: "🌟";
+            position: absolute;
+            left: 0;
+            font-size: 24px;
+        }
+
+        .doctor-advisory-card .consult-button {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 18px 35px;
+            background: linear-gradient(90deg, #ffd700, #ff6b6b);
+            color: #1a1a3d;
+            font-family: "Comic Neue", cursive;
+            font-weight: 700;
+            font-size: 18px;
+            border-radius: 35px;
+            text-decoration: none;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            transition: transform 0.4s ease, background 0.4s ease;
+        }
+
+        .doctor-advisory-card .consult-button:hover {
+            transform: translateY(-5px) scale(1.1);
+            background: linear-gradient(90deg, #ff6b6b, #ffd700);
+        }
+
         .grid-container {
             display: grid;
-            grid-template-columns: 1fr; /* One column by default */
-            gap: 30px;
-            margin-top: 25px;
+            grid-template-columns: 1fr;
+            gap: 40px;
+            margin-top: 40px;
         }
 
         @media (min-width: 768px) {
             .grid-container {
-                grid-template-columns: 1fr 1fr; /* Two columns on larger screens */
+                grid-template-columns: 1fr 1fr;
             }
+        }
+
+        .motivational-quote {
+            background: linear-gradient(135deg, #88d3ce, #6e45e2);
+            color: #fff;
+            padding: 30px;
+            border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin: 30px 0;
+            font-family: "Comic Neue", cursive;
+            font-size: 24px;
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .progress-circle {
+            width: 150px;
+            height: 150px;
+            margin: 20px auto;
+            position: relative;
+            background: conic-gradient(#ffd700 0% var(--progress), #333 0%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .progress-circle::before {
+            content: '';
+            position: absolute;
+            width: 130px;
+            height: 130px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+        }
+
+        .progress-circle span {
+            position: relative;
+            font-family: "Montserrat", sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: #b19d75;
+        }
+
+        .daily-challenge {
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            padding: 30px;
+            border-radius: 25px;
+            margin: 30px 0;
+            text-align: left;
+            font-size: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .daily-challenge h2 {
+            font-family: "Comic Neue", cursive;
+            font-size: 32px;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .daily-challenge button {
+            padding: 15px 30px;
+            background: linear-gradient(90deg, #ffd700, #ff6b6b);
+            border: none;
+            border-radius: 25px;
+            font-family: "Montserrat", sans-serif;
+            font-size: 18px;
+            color: #1a1a3d;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .daily-challenge button:hover {
+            transform: scale(1.1);
+        }
+
+        @keyframes bounceGlow {
+            0%, 100% { transform: translateY(0); text-shadow: 0 0 15px #ffd700; }
+            50% { transform: translateY(-5px); text-shadow: 0 0 25px #ff6b6b; }
+        }
+
+        @keyframes particleDrift {
+            0% { background-position: 0 0; }
+            100% { background-position: 80px 80px; }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(25px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(90deg, #e4d57b, #ff6b6b);
+            border-radius: 12px;
         }
     </style>
 </head>
 <body>
-
     <div class="container">
-        <h1>🧠 MindHorizon Mood Analysis</h1>
+        <h1> MindHorizon: Your Mood Adventure</h1>
 
-        <div class="dropdown-container">
-            <label for="timeFilter">View Data:</label>
-            <select id="timeFilter">
-                <option value="daily">Daily 📅</option>
-                <option value="weekly">Weekly 📆</option>
-                <option value="monthly">Monthly 📊</option>
-                <option value="yearly">Yearly 📅</option>
-            </select>
+        <div class="motivational-quote" id="motivationalQuote">
+            "You are stronger than you know! Keep shining! 🌟"
         </div>
 
         <div class="grid-container">
             <div class="card">
-                <h2>Current Mood Score</h2>
+                <h2>Your Mood Today</h2>
                 <div class="graph-container">
                     <canvas id="currentScoreChart"></canvas>
+                </div>
+                <div class="progress-circle" id="progressCircle">
+                    <span id="progressValue">0%</span>
                 </div>
             </div>
 
             <div class="card">
-                <h2>Mood Trends Over Time</h2>
+                <h2>Your Mood Journey</h2>
                 <div class="graph-container">
                     <canvas id="moodTrendsChart"></canvas>
                 </div>
             </div>
         </div>
 
-        <!-- Current Mental Status -->
         <div class="card">
-            <h2>Current Mental Status</h2>
-            <span id="mentalStatus" class="mood-score">--</span>
+            <h2>How Are You Feeling?</h2>
+            <span id="mentalStatus" class="mood-score">Let's Find Out! 😊</span>
         </div>
 
-        <!-- Prescription Section -->
+        <div class="daily-challenge">
+            <h2>🎯 Daily Mood Boost</h2>
+            <p id="dailyChallengeText">Try a 5-minute gratitude journal today!</p>
+            <button onclick="completeChallenge()">I Did It!</button>
+        </div>
+
         <div class="prescription-card">
-            <h2>📝 Prescription & Recommendations</h2>
-            <p id="prescriptionText">--</p>
+            <h2>📝 Your Mood Rx</h2>
+            <p id="prescriptionText">Keep shining with healthy habits!</p>
+        </div>
+
+        <div class="doctor-advisory-card">
+            <h2>👩‍⚕️ Your Wellness Guide</h2>
+            <ul>
+                <li>Move your body for 30 minutes to spark joy! 🏃</li>
+                <li>Rest well to recharge your mind. 😴</li>
+                <li>Breathe deeply with mindfulness moments. 🧘</li>
+                <li>Connect with loved ones for a heart boost. ❤️</li>
+                <li>Chat with a pro if you need a lift! 📞</li>
+            </ul>
+            <a href="doctor.html" class="consult-button">Explore More Support</a>
         </div>
 
         <div id="diagnosisAlert" class="alert"></div>
     </div>
 
     <script>
-        document.getElementById('timeFilter').addEventListener('change', fetchData);
         fetchData();
 
+        const quotes = [
+            "You're a masterpiece in progress! Keep creating! 🎨",
+            "Every step you take is a victory! 🚀",
+            "Your smile lights up the world! 😄",
+            "Embrace today with courage! 💪",
+            "You're never alone on this journey! 🤗"
+        ];
+
+        function updateQuote() {
+            const quoteElement = document.getElementById("motivationalQuote");
+            quoteElement.innerText = quotes[Math.floor(Math.random() * quotes.length)];
+            anime({
+                targets: quoteElement,
+                scale: [0.95, 1],
+                opacity: [0, 1],
+                easing: 'easeOutElastic(1, .6)',
+                duration: 1000
+            });
+        }
+
+        const challenges = [
+            "Write down 3 things you're grateful for! 📝",
+            "Take a 10-minute walk in nature! 🌳",
+            "Try a 5-minute meditation session! 🧘",
+            "Call a friend and share a laugh! 📞",
+            "Treat yourself to a healthy snack! 🍎"
+        ];
+
+        function updateChallenge() {
+            const challengeElement = document.getElementById("dailyChallengeText");
+            challengeElement.innerText = challenges[Math.floor(Math.random() * challenges.length)];
+        }
+
+        function completeChallenge() {
+            alert("Woohoo! You completed today's challenge! 🎉 Keep rocking it!");
+            updateChallenge();
+        }
+
         async function fetchData() {
-            const timeFilter = document.getElementById('timeFilter').value;
             try {
-                const response = await fetch(`http://localhost/Project%20Team%20Weaver/project/php/dashboard.php?time_filter=${timeFilter}`);
+                const response = await fetch(`http://localhost/Project%20Team%20Weaver/project/php/dashboard.php`);
                 const data = await response.json();
                 console.log("Fetched Data:", data);
 
@@ -179,6 +439,9 @@
                 updateDiagnosisAlert(data.latest_score);
                 updateMentalStatus(data.latest_score);
                 updatePrescription(data.latest_score);
+                updateProgressCircle(data.latest_score);
+                updateQuote();
+                updateChallenge();
             } catch (error) {
                 console.error("Error fetching data:", error);
             }
@@ -189,36 +452,51 @@
             new Chart(ctx, {
                 type: "bar",
                 data: {
-                    labels: ["Current Mood Score"],
+                    labels: ["Your Mood Today"],
                     datasets: [{
-                        label: "Current Score",
+                        label: "Mood Score",
                         data: [score || 0],
-                        backgroundColor: "rgba(38, 198, 218, 0.7)", // Gradient color for the bar
-                        borderColor: "rgba(38, 198, 218, 1)",
-                        borderWidth: 2,
-                        hoverBackgroundColor: "rgba(38, 198, 218, 1)",
-                        hoverBorderColor: "rgba(38, 198, 218, 1)"
+                        backgroundColor: "rgba(255, 215, 0, 0.8)",
+                        borderColor: "rgba(255, 215, 0, 1)",
+                        borderWidth: 4,
+                        borderRadius: 20,
+                        hoverBackgroundColor: "rgba(255, 107, 107, 0.8)"
                     }]
                 },
                 options: {
                     responsive: true,
+                    maintainAspectRatio: false,
                     scales: {
                         x: { display: false },
                         y: { 
                             beginAtZero: true,
                             max: 5,
                             ticks: {
-                                stepSize: 1
-                            }
+                                stepSize: 1,
+                                font: { size: 18, weight: '700', family: 'Montserrat' },
+                                color: '#e0e0e0'
+                            },
+                            grid: { color: 'rgba(255, 255, 255, 0.2)' }
                         }
                     },
                     plugins: {
+                        legend: { display: false },
                         tooltip: {
+                            backgroundColor: 'rgba(26, 26, 61, 0.9)',
+                            titleFont: { size: 20, family: 'Comic Neue' },
+                            bodyFont: { size: 18, family: 'Poppins' },
                             callbacks: {
-                                label: function(tooltipItem) {
-                                    return 'Score: ' + tooltipItem.raw;
-                                }
+                                label: (tooltipItem) => `Mood: ${tooltipItem.raw}/5 ✨`
                             }
+                        }
+                    },
+                    animation: {
+                        duration: 3000,
+                        easing: 'easeOutBounce'
+                    },
+                    onClick: (event, elements) => {
+                        if (elements.length) {
+                            alert(`Today's mood score is ${score}/5! Keep shining! 🌟`);
                         }
                     }
                 }
@@ -232,56 +510,86 @@
                 data: {
                     labels: labels,
                     datasets: [{
-                        label: "Mood Score (1 - 4)",
+                        label: "Mood Journey",
                         data: scores,
-                        borderColor: "#009688",
-                        borderWidth: 3,
+                        borderColor: "rgba(255, 215, 0, 1)",
+                        backgroundColor: "rgba(255, 215, 0, 0.4)",
+                        borderWidth: 6,
                         fill: true,
-                        backgroundColor: "rgba(38, 198, 218, 0.3)", // Gradient fill under the line
                         tension: 0.4,
-                        pointStyle: 'circle',
-                        pointRadius: 6,
-                        pointBackgroundColor: '#009688'
+                        pointRadius: 10,
+                        pointHoverRadius: 15,
+                        pointBackgroundColor: '#fff',
+                        pointBorderColor: 'rgba(255, 215, 0, 1)'
                     }]
                 },
                 options: {
                     responsive: true,
+                    maintainAspectRatio: false,
                     scales: {
                         y: { 
                             beginAtZero: true,
                             max: 5,
                             ticks: {
-                                stepSize: 1
-                            }
+                                stepSize: 1,
+                                font: { size: 18, weight: '700', family: 'Montserrat' },
+                                color: '#e0e0e0'
+                            },
+                            grid: { color: 'rgba(255, 255, 255, 0.2)' }
                         },
                         x: {
+                            ticks: {
+                                font: { size: 16, family: 'Comic Neue' },
+                                color: '#e0e0e0',
+                                maxRotation: 45,
+                                minRotation: 45
+                            },
                             title: {
                                 display: true,
-                                text: 'Time Period',
-                                color: '#009688',
-                                font: {
-                                    weight: 'bold'
-                                }
+                                text: 'Your Journey',
+                                font: { size: 20, family: 'Comic Neue' },
+                                color: '#e0e0e0'
                             }
                         }
                     },
                     plugins: {
                         legend: {
-                            display: true,
-                            position: 'top'
+                            labels: { font: { size: 18, family: 'Comic Neue' }, color: '#e0e0e0' }
                         },
                         tooltip: {
+                            backgroundColor: 'rgba(26, 26, 61, 0.9)',
+                            titleFont: { size: 20, family: 'Comic Neue' },
+                            bodyFont: { size: 18, family: 'Poppins' },
                             callbacks: {
-                                label: function(tooltipItem) {
-                                    return 'Score: ' + tooltipItem.raw;
-                                }
+                                label: (tooltipItem) => `Mood: ${tooltipItem.raw}/5 ✨`
                             }
                         }
                     },
                     animation: {
-                        duration: 1500
+                        duration: 3500,
+                        easing: 'easeInOutBounce'
+                    },
+                    onClick: (event, elements) => {
+                        if (elements.length) {
+                            const index = elements[0].index;
+                            alert(`On ${labels[index]}, your mood was ${scores[index]}/5!`);
+                        }
                     }
                 }
+            });
+        }
+
+        function updateProgressCircle(score) {
+            const progressCircle = document.getElementById("progressCircle");
+            const progressValue = document.getElementById("progressValue");
+            const percentage = Math.round((score / 5) * 100);
+            progressCircle.style.setProperty('--progress', `${percentage}%`);
+            progressValue.innerText = `${percentage}%`;
+            anime({
+                targets: progressCircle,
+                scale: [0.9, 1],
+                easing: 'easeOutElastic(1, .6)',
+                duration: 1500
             });
         }
 
@@ -293,8 +601,15 @@
             }
 
             if (score <= 2) {
-                alertBox.innerHTML = "⚠️ Warning: Possible Anxiety Symptoms. Please consider self-care or professional help.";
+                alertBox.innerHTML = "🌧️ Feeling a bit cloudy? Try some self-care or chat with a pro!";
                 alertBox.style.display = "block";
+                anime({
+                    targets: alertBox,
+                    translateX: [-30, 0],
+                    opacity: [0, 1],
+                    easing: 'easeOutQuad',
+                    duration: 600
+                });
             } else {
                 alertBox.style.display = "none";
             }
@@ -302,26 +617,39 @@
 
         function updateMentalStatus(score) {
             const statusElement = document.getElementById("mentalStatus");
-
             if (score >= 3.5) {
-                statusElement.innerText = "Stable Mood 😊";
-                statusElement.style.backgroundColor = "#00796b";
+                statusElement.innerText = "Sunny Vibes! 😎";
+                statusElement.style.background = "linear-gradient(90deg, #ffd700, #4ecdc4)";
             } else if (score >= 2.5) {
-                statusElement.innerText = "Mild Stress 😐";
-                statusElement.style.backgroundColor = "#ffcc00";
+                statusElement.innerText = "A Bit Cloudy 😌";
+                statusElement.style.background = "linear-gradient(90deg, #ffcc00, #ffd700)";
             } else {
-                statusElement.innerText = "Possible Anxiety Symptoms 😟";
-                statusElement.style.backgroundColor = "#ff4d4d";
+                statusElement.innerText = "Rainy Days? We're Here! ☔";
+                statusElement.style.background = "linear-gradient(90deg, #ff6b6b, #ff2e63)";
             }
-
-            statusElement.style.color = "white";
+            anime({
+                targets: statusElement,
+                scale: [0.95, 1],
+                easing: 'easeOutElastic(1, .6)',
+                duration: 1000
+            });
         }
 
         function updatePrescription(score) {
             const prescriptionText = document.getElementById("prescriptionText");
-            prescriptionText.innerHTML = score >= 3 ? "✅ Keep up healthy habits!" : "⚠️ Try relaxation techniques and seek help if needed.";
+            prescriptionText.innerHTML = score >= 3 
+                ? "🌟 You're rocking it! Keep up those awesome habits!" 
+                : "🌈 Try some deep breathing or a fun activity to lift your spirits!";
+            anime({
+                targets: prescriptionText,
+                opacity: [0, 1],
+                translateY: [20, 0],
+                easing: 'easeOutQuad',
+                duration: 800
+            });
         }
-    </script>
 
+        setInterval(updateQuote, 10000);
+    </script>
 </body>
 </html>

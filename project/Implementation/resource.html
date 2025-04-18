@@ -9,70 +9,108 @@
         /* Floating Animation */
         @keyframes float {
             0% { transform: translateY(0px); }
-            50% { transform: translateY(-8px); }
+            50% { transform: translateY(-10px); }
             100% { transform: translateY(0px); }
         }
         .floating {
-            animation: float 9s ease-in-out infinite;
+            animation: float 6s ease-in-out infinite;
         }
-                                                                 
+
+        /* Card Hover Effect */
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Button Hover Effect */
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+
         /* Hide Horizontal Scroll */
         body {
             overflow-x: hidden;
         }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: #48BB78;
+            border-radius: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background-color: #f0f0f0;
+        }
     </style>
 </head>
-<body class="bg-gradient-to-b from-teal-100 to-lime-100 flex justify-center items-center min-h-screen p-6">
+<body class="bg-gradient-to-b from-teal-200 to-lime-200 flex justify-center items-center min-h-screen p-6">
 
-    <div class="w-full bg-white rounded-2xl shadow-2xl p-8 min-h-screen flex flex-col justify-between">
+    <div class="w-full bg-white rounded-3xl shadow-xl p-8 min-h-screen flex flex-col justify-between space-y-6">
         <h2 class="text-5xl font-extrabold text-gray-900 text-center mb-8">Resources</h2>
 
         <!-- Scrollable Resource List -->
-        <div class="overflow-y-auto max-h-[75vh] space-y-6 px-2 scrollbar-thin scrollbar-thumb-green-500 scrollbar-track-gray-200">
+        <div class="overflow-y-auto max-h-[75vh] space-y-6 px-4 scrollbar-thin">
             
             <!-- Resource 1 - Mental Health Guide -->
-            <div class="bg-gray-50 p-6 rounded-xl shadow-md hover:shadow-lg transition focus-within:ring-4 ring-green-500 floating">
+            <div class="bg-gradient-to-r from-teal-100 to-teal-200 p-6 rounded-2xl shadow-lg card hover:shadow-2xl transition transform">
                 <h3 class="text-2xl font-semibold text-gray-900">📖 Mental Health Guide</h3>
                 <p class="text-gray-700 text-lg mt-2">A comprehensive guide on children's mental well-being.</p>
-                <div class="mt-4 space-x-2">
-                    <a href="guide.html" class="inline-block px-4 py-2 bg-white text-green-600 font-bold rounded-lg shadow-md hover:bg-gray-100 transition focus:ring-2 focus:ring-green-500">📚 Read Guide</a>
-                    <a href="https://drive.google.com/file/d/1dnaAGG8bmtDFGpipFjNob7EHZIV_n97W/view?usp=sharing" class="inline-block px-4 py-2 bg-white text-green-600 font-bold rounded-lg shadow-md hover:bg-gray-100 transition focus:ring-2 focus:ring-green-500">📄 Download PDF</a>
+                <div class="mt-4 flex flex-col sm:flex-row gap-4">
+                    <a href="guide.html" class="inline-block px-5 py-2.5 bg-teal-500 text-white font-bold rounded-full transition btn">
+                        📚 Read Guide
+                    </a>
+                    <a href="https://drive.google.com/file/d/1dnaAGG8bmtDFGpipFjNob7EHZIV_n97W/view?usp=sharing" class="inline-block px-5 py-2.5 bg-teal-600 text-white font-bold rounded-full transition btn">
+                        📄 Download PDF
+                    </a>
                 </div>
             </div>
 
             <!-- Resource 2 - Self-Assessment Quiz -->
-            <div class="bg-gray-50 p-6 rounded-xl shadow-md hover:shadow-lg transition focus-within:ring-4 ring-green-500 floating">
+            <div class="bg-gradient-to-r from-lime-100 to-lime-200 p-6 rounded-2xl shadow-lg card hover:shadow-2xl transition transform">
                 <h3 class="text-2xl font-semibold text-gray-900">📝 Self-Assessment Quiz</h3>
                 <p class="text-gray-700 text-lg mt-2">A quick test to evaluate mental well-being.</p>
-                <a href="quiz.html" class="mt-4 inline-block px-4 py-2 bg-white text-green-600 font-bold rounded-lg shadow-md hover:bg-gray-100 transition focus:ring-2 focus:ring-green-500">🔍 Take Quiz</a>
+                <a href="quiz.html" class="mt-4 inline-block px-5 py-2.5 bg-lime-500 text-white font-bold rounded-full transition btn">
+                    🔍 Take Quiz
+                </a>
             </div>
 
             <!-- Resource 3 - Parenting Tips -->
-            <div class="bg-gray-50 p-6 rounded-xl shadow-md hover:shadow-lg transition focus-within:ring-4 ring-green-500 floating">
+            <div class="bg-gradient-to-r from-teal-100 to-teal-200 p-6 rounded-2xl shadow-lg card hover:shadow-2xl transition transform">
                 <h3 class="text-2xl font-semibold text-gray-900">👨‍👩‍👧 Parenting Tips</h3>
                 <p class="text-gray-700 text-lg mt-2">Helpful tips for parents to support their child's mental health.</p>
-                <a href="parentingtip.html" class="mt-4 inline-block px-4 py-2 bg-white text-green-600 font-bold rounded-lg shadow-md hover:bg-gray-100 transition focus:ring-2 focus:ring-green-500">📌 Read More</a>
+                <a href="parentingtip.html" class="mt-4 inline-block px-5 py-2.5 bg-teal-500 text-white font-bold rounded-full transition btn">
+                    📌 Read More
+                </a>
             </div>
 
             <!-- Resource 4 - Support Groups -->
-            <div class="bg-gray-50 p-6 rounded-xl shadow-md hover:shadow-lg transition focus-within:ring-4 ring-green-500 floating">
+            <div class="bg-gradient-to-r from-yellow-100 to-yellow-200 p-6 rounded-2xl shadow-lg card hover:shadow-2xl transition transform">
                 <h3 class="text-2xl font-semibold text-gray-900">🗣️ Support Groups</h3>
                 <p class="text-gray-700 text-lg mt-2">Find communities and groups for support.</p>
-                <a href="support.html" class="mt-4 inline-block px-4 py-2 bg-white text-green-600 font-bold rounded-lg shadow-md hover:bg-gray-100 transition focus:ring-2 focus:ring-green-500">🤝 Join Now</a>
+                <a href="supportgroup.html" class="mt-4 inline-block px-5 py-2.5 bg-yellow-500 text-white font-bold rounded-full transition btn">
+                    🤝 Join Now
+                </a>
             </div>
 
             <!-- Resource 5 - Helpline Numbers -->
-            <div class="bg-gray-50 p-6 rounded-xl shadow-md hover:shadow-lg transition focus-within:ring-4 ring-green-500 floating">
+            <div class="bg-gradient-to-r from-teal-100 to-teal-200 p-6 rounded-2xl shadow-lg card hover:shadow-2xl transition transform">
                 <h3 class="text-2xl font-semibold text-gray-900">📞 Helpline Numbers</h3>
                 <p class="text-gray-700 text-lg mt-2">Emergency contacts for professional help.</p>
-                <a href="helpline.html" class="mt-4 inline-block px-4 py-2 bg-white text-green-600 font-bold rounded-lg shadow-md hover:bg-gray-100 transition focus:ring-2 focus:ring-green-500">☎️ View Contacts</a>
+                <a href="helplinenumber.html" class="mt-4 inline-block px-5 py-2.5 bg-teal-500 text-white font-bold rounded-full transition btn">
+                    ☎️ View Contacts
+                </a>
             </div>
 
             <!-- Resource 6 - Educational Videos -->
-            <div class="bg-gray-50 p-6 rounded-xl shadow-md hover:shadow-lg transition focus-within:ring-4 ring-green-500 floating">
+            <div class="bg-gradient-to-r from-lime-100 to-lime-200 p-6 rounded-2xl shadow-lg card hover:shadow-2xl transition transform">
                 <h3 class="text-2xl font-semibold text-gray-900">🎥 Educational Videos</h3>
                 <p class="text-gray-700 text-lg mt-2">Watch expert talks on children's mental health.</p>
-                <a href="videos.html" class="mt-4 inline-block px-4 py-2 bg-white text-green-600 font-bold rounded-lg shadow-md hover:bg-gray-100 transition focus:ring-2 focus:ring-green-500">▶️ Watch Now</a>
+                <a href="videos.html" class="mt-4 inline-block px-5 py-2.5 bg-lime-500 text-white font-bold rounded-full transition btn">
+                    ▶️ Watch Now
+                </a>
             </div>
 
         </div>

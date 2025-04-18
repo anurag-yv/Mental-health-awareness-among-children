@@ -5,6 +5,33 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Therapy Sessions</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Button Style */
+    .btn {
+      padding: 12px 24px;
+      background-color: #34D399; /* Green color */
+      color: white;
+      font-weight: bold;
+      font-size: 1rem;
+      border-radius: 9999px; /* Fully rounded */
+      transition: all 0.3s ease; /* Smooth transition for hover effects */
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    /* Hover Effect */
+    .btn:hover {
+      background-color: #10B981; /* Darker green on hover */
+      transform: scale(1.05); /* Grow effect */
+      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    }
+
+    /* Focus Effect */
+    .btn:focus {
+      outline: none;
+      box-shadow: 0 0 0 4px rgba(56, 189, 148, 0.5); /* Green shadow on focus */
+    }
+  </style>
 </head>
 <body class="bg-green-50 text-gray-800">
 
@@ -19,23 +46,21 @@
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
        
         <div class="bg-white p-6 rounded-xl shadow-md hover:scale-105 transform transition duration-300">
-          <img src="/project/images/3.png" alt="Dr1" class="rounded-full w-24 h-24 mx-auto ">
+          <img src="../images/3.png" alt="Dr1" class="rounded-full w-24 h-24 mx-auto " />
           <h3 class="text-xl font-bold mt-4 text-center">Dr. Aasses Kaur</h3>
           <p class="text-center text-sm text-gray-600">Psychologist, 3+ yrs experience</p>
           <p class="text-center text-sm mt-2">📞 +91 91292 53159 </p>
         </div>
 
-       
         <div class="bg-white p-6 rounded-xl shadow-md hover:scale-105 transform transition duration-300">
-          <img src="/project/images/1.jpeg" alt="Dr2" class="rounded-full w-24 h-24 mx-auto">
+          <img src="../images/1.jpeg" alt="Dr2" class="rounded-full w-24 h-24 mx-auto" />
           <h3 class="text-xl font-bold mt-4 text-center">Dr. Aishwarya Rao</h3>
           <p class="text-center text-sm text-gray-600">Counseling Psychologist, 6+ yrs experience</p>
           <p class="text-center text-sm mt-2">📞 +91 72501 52489 </p>
         </div>
 
-        
         <div class="bg-white p-6 rounded-xl shadow-md hover:scale-105 transform transition duration-300">
-          <img src="/project/images/2.png" alt="Dr3" class="rounded-full w-24 h-24 mx-auto">
+          <img src="../images/2.png" alt="Dr3" class="rounded-full w-24 h-24 mx-auto" />
           <h3 class="text-xl font-bold mt-4 text-center">Dr. Mohini Singh</h3>
           <p class="text-center text-sm text-gray-600">Child & Family Therapist,7+ yrs experience</p>
           <p class="text-center text-sm mt-2">📞 +91 90984 26485</p>
@@ -44,7 +69,8 @@
     </section>
 
     <section class="text-center mt-16">
-      <a href="programpage.html" class="text-green-600 font-semibold underline">← Back to Home</a>
+      <!-- Enhanced "Back to Home" Button -->
+      <a href="programpage.html" class="btn">← Back to Home</a>
     </section>
   </main>
 

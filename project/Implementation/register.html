@@ -28,14 +28,14 @@
     }
 
     .glow-button {
-      background: linear-gradient(90deg, #34d399, #10b981);
-      box-shadow: 0 0 10px #34d399;
+      background: linear-gradient(90deg, #25bd86, #119a6c);
+      box-shadow: 0 0 10px #1a9c6d;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
     .glow-button:hover {
       transform: scale(1.03);
-      box-shadow: 0 0 20px #10b981;
+      box-shadow: 0 0 20px #11976a;
     }
 
     .animate-float {
@@ -76,8 +76,8 @@
     }
 
     .input-icon input {
-      padding-left: 2.5rem; /* Adjust to leave enough space for the icon */
-      height: 40px; /* Set a fixed height for the input */
+      padding-left: 2.5rem;
+      height: 40px;
     }
 
     .carousel {
@@ -112,10 +112,9 @@
       background-color: #10b981;
     }
 
-    /* Responsive adjustments */
     @media (max-width: 768px) {
       .input-icon input {
-        padding-left: 2rem; /* Adjust for smaller screens */
+        padding-left: 2rem;
       }
 
       .subtle-bg {
@@ -126,11 +125,11 @@
       }
 
       .fade-slide {
-        animation-duration: 0.5s; /* Faster for mobile */
+        animation-duration: 0.5s;
       }
 
       .glow-button {
-        font-size: 0.875rem; /* Smaller button font on mobile */
+        font-size: 0.875rem;
       }
 
       .carousel {
@@ -149,24 +148,31 @@
     }
   </style>
 </head>
-<body class="min-h-screen flex flex-col items-center justify-start p-4 md:p-6 relative overflow-hidden">
+<body class="min-h-screen flex flex-col items-center justify-start p-4 md:p-6 relative overflow-hidden bg-white">
 
   <div class="subtle-bg"></div>
 
-  <!-- Logo Section -->
-  <section class="text-center mt-2 mb-4 max-w-4xl mx-auto fade-slide">
-    <img src="your-logo.png" alt="MindHorizon Logo" class="mx-auto w-36 md:w-40 animate-float" />
-    <h1 class="text-3xl md:text-5xl font-bold text-teal-700 bg-clip-text text-transparent bg-gradient-to-r from-teal-500 to-emerald-500 mt-3">
-      Begin Your Wellness Journey
+  <!-- Main Heading -->
+  <!-- <header class="text-center mt-2 fade-slide">
+    <h1 class="text-4xl font-bold text-teal-600">
+      MindHorizon
     </h1>
+    
+  </header>
+   -->
+
+  <!-- Subheading -->
+  <section class="text-center mt-2 mb-4 max-w-4xl mx-auto fade-slide">
+    <h2 class="text-2xl md:text-3xl font-bold text-blue-700 mt-3">
+      Begin Your Wellness Journey
+    </h2>
     <p class="text-base md:text-lg text-gray-600 mt-2 font-light px-4">
       MindHorizon is your companion for mental clarity and emotional balance. Sign up to explore a world of calm.
     </p>
   </section>
 
   <!-- Registration Form -->
-  <section class="w-full max-w-3xl px-4 md:px-0 fade-slide mb-10">
-    <!-- Form -->
+  <section class="w-full max-w-3xl px-4 md:px-0 fade-slide mb-6">
     <form action="http://localhost/Project%20Team%20Weaver/project/php/register.php" method="POST" class="grid gap-5 md:grid-cols-1 px-2 md:px-20">
       <div class="input-icon">
         <label class="block text-sm font-medium text-gray-700 mb-1">First Name</label>
@@ -194,7 +200,6 @@
       </button>
     </form>
 
-    <!-- Login Link -->
     <p class="text-center text-xs mt-4 text-gray-600">
       Already have an account?
       <a href="login.html" class="text-teal-500 font-medium hover:underline hover:text-teal-600 transition">Sign in</a>
@@ -202,8 +207,8 @@
   </section>
 
   <!-- Carousel Section -->
-  <section class="w-full max-w-3xl mx-auto mb-8 px-4">
-    <h3 class="text-xl md:text-2xl font-semibold text-teal-700 text-center mb-4 fade-slide">Daily Wellness Tips</h3>
+  <section class="w-full max-w-3xl mx-auto mb-6 px-4">
+    <h3 class="text-xl md:text-2xl font-semibold text-teal-700 text-center mb-3 fade-slide">Daily Wellness Tips</h3>
     <div class="relative bg-white bg-opacity-80 rounded-2xl p-6 shadow-lg carousel">
       <div class="carousel-item active">
         <p class="tip-text text-gray-600 text-center text-lg italic">Take 5 deep breaths to center yourself each morning.</p>
@@ -214,7 +219,7 @@
       <div class="carousel-item">
         <p class="tip-text text-gray-600 text-center text-lg italic">Spend 10 minutes in nature to refresh your mind.</p>
       </div>
-      <div class="flex justify-center gap-3 mt-6">
+      <div class="flex justify-center gap-3 mt-4">
         <span class="carousel-dot active" onclick="showSlide(0)"></span>
         <span class="carousel-dot" onclick="showSlide(1)"></span>
         <span class="carousel-dot" onclick="showSlide(2)"></span>
@@ -233,7 +238,7 @@
     }
 
     let currentSlide = 0;
-    const totalSlides = 3;  // Total number of slides (you can add more if needed)
+    const totalSlides = 3;
     setInterval(() => {
       currentSlide = (currentSlide + 1) % totalSlides;
       showSlide(currentSlide);

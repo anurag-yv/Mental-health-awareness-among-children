@@ -5,172 +5,286 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MindHorizon | Joyful Mental Wellness</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --electric-pink: #ff2d75;
+            --vivid-orange: #ff6b35;
+            --neon-blue: #00f5d4;
+            --sunshine-yellow: #fee440;
+            --deep-purple: #8338ec;
+        }
+        
         body {
-            font-family: 'Comfortaa', cursive;
-            background-color: #f4f9f9;
-            color: #34d399;
-        }
-        
-        .bounce {
-            animation: bounce 6s infinite;
-        }
-        
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
-        }
-        
-        .breathing {
-            animation: breathing 8s ease-in-out infinite;
-        }
-        
-        @keyframes breathing {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.03); }
-        }
-        
-        .btn-float {
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        
-        .btn-float:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
-        }
-        
-        .wave {
-            animation: wave 12s linear infinite;
-        }
-        
-        @keyframes wave {
-            0% { transform: rotate(0deg); }
-            25% { transform: rotate(1.5deg); }
-            50% { transform: rotate(0deg); }
-            75% { transform: rotate(-1.5deg); }
-            100% { transform: rotate(0deg); }
+            font-family: 'Poppins', 'Comfortaa', cursive;
+           
+            color: #2f3e46;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        /* Enhanced responsiveness */
-        @media (max-width: 640px) {
-            .header-logo {
-                width: 10vw;
-                height: 10vw;
-                min-width: 40px;
-                min-height: 40px;
+        /* Header Styling */
+        header {
+            padding: 4rem 2rem;
+            text-align: center;
+            background: linear-gradient(45deg, var(--electric-pink), var(--deep-purple));
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+           
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            transform: rotate(180deg);
+        }
+
+        header h1 {
+            font-size: 4rem;
+            color: white;
+            margin: 0;
+            text-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            font-weight: 800;
+            letter-spacing: -1px;
+            position: relative;
+            
+        }
+
+        header h2 {
+            color: white;
+            font-weight: 600;
+            font-size: 1.8rem;
+            margin-top: 1rem;
+            position: relative;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            
+        }
+
+        /* Main Section Styling */
+        main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            flex-grow: 1;
+            padding: 2rem;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .main-content {
+            max-width: 900px;
+            padding: 3rem;
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+            margin-top: -50px;
+            position: relative;
+            z-index: 2;
+            border: 4px solid white;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, var(--vivid-orange), var(--electric-pink));
+            color: white;
+            padding: 16px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-block;
+            margin: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 16px rgba(255,45,117,0.3);
+            border: none;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--neon-blue), var(--sunshine-yellow));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 12px 24px rgba(255,45,117,0.4);
+        }
+
+        .btn:hover::after {
+            opacity: 1;
+        }
+
+        .btn-secondary {
+            background: linear-gradient(45deg, var(--neon-blue), var(--sunshine-yellow));
+            box-shadow: 0 6px 16px rgba(0,245,212,0.3);
+        }
+
+        .btn-secondary:hover {
+            box-shadow: 0 12px 24px rgba(0,245,212,0.4);
+        }
+
+        /* Feature Cards Styling */
+        
+        /* Floating Elements */
+        .floating {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.2;
+            z-index: 0;
+        }
+
+        .floating-1 {
+            width: 200px;
+            height: 200px;
+            background: var(--electric-pink);
+            top: 10%;
+            left: 5%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .floating-2 {
+            width: 150px;
+            height: 150px;
+            background: var(--neon-blue);
+            bottom: 15%;
+            right: 10%;
+            animation: float 8s ease-in-out infinite reverse;
+        }
+
+        .floating-3 {
+            width: 100px;
+            height: 100px;
+            background: var(--sunshine-yellow);
+            top: 30%;
+            right: 20%;
+            animation: float 5s ease-in-out infinite 1s;
+        }
+
+       
+        /* Animations */
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
             }
-            h1 {
-                font-size: clamp(1.5rem, 6vw, 1.8rem);
+            50% {
+                transform: translateY(-20px) rotate(5deg);
             }
-            h2 {
-                font-size: clamp(1.8rem, 8vw, 2.5rem);
+            100% {
+                transform: translateY(0) rotate(0deg);
             }
-            p {
-                font-size: clamp(0.9rem, 4vw, 1rem);
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.8;
             }
-            .btn-float {
-                padding: 0.75rem 1.5rem;
-                font-size: clamp(0.85rem, 3.5vw, 0.95rem);
+            50% {
+                transform: scale(1.05);
+                opacity: 1;
             }
-            .feature-card {
+            100% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.5rem;
+            }
+            
+            header h2 {
+                font-size: 1.3rem;
+            }
+            
+            .main-content {
+                padding: 2rem 1rem;
+                margin-top: -30px;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
                 padding: 1rem;
             }
-            .feature-card img {
-                width: 60px;
-                height: 60px;
+            
+            .btn {
+                padding: 12px 24px;
+                margin: 0.5rem;
+                font-size: 0.9rem;
             }
         }
-        
     </style>
 </head>
-<body class="min-h-screen flex flex-col">
+<body class style="background-image: url('../images/2.jpg'); background-size: cover; background-position: center;"></body>
 
-    <!-- Header -->
-    <header class="py-4 px-4 sm:px-6 lg:px-12 bg-teal-50">
-        <div class="flex items-center">
-            <div class="header-logo w-12 h-12 rounded-xl bg-gradient-to-br from-teal-300 to-teal-500 flex items-center justify-center text-white text-xl font-bold mr-3">
-                🌈
-            </div>
-            <h1 class="text-xl sm:text-2xl font-bold text-teal-800">Mind<span class="text-teal-700">Horizon</span></h1>
-        </div>
+  
+    <div class="floating floating-1"></div>
+    <div class="floating floating-2"></div>
+    <div class="floating floating-3"></div>
+
+   
+    <header>
+        <h1>MINDHORIZON</h1>
+        <h2>Expand Your Joyful Mental Wellness</h2>
     </header>
 
-    <!-- Main Content -->
-    <main class="flex-grow flex items-center justify-center px-4 sm:px-6 py-12 sm:py-20">
-        <div class="max-w-5xl w-full">
-            <div class="flex flex-col lg:flex-row items-center">
-                <div class="lg:w-1/2 mb-8 lg:mb-0 text-center lg:text-left">
-                    <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-teal-900 mb-4 sm:mb-6 leading-tight">
-                        Find your <span class="text-teal-700">happy place</span> within
-                    </h2>
-                    <p class="text-base sm:text-lg text-teal-700 mb-6 sm:mb-8 max-w-md mx-auto lg:mx-0">
-                        Gentle tools to help you breathe, reflect, and grow at your own pace.
-                    </p>
-                    <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 justify-center lg:justify-start">
-                        <a href="register.html" class="bg-teal-600 hover:bg-teal-700 text-white px-6 sm:px-8 py-2.5 sm:py-3 rounded-full font-medium btn-float transition-all">
-                            Begin Journey
-                        </a>
-                        <a href="login.html" class="border-2 border-teal-600 text-teal-700 hover:bg-teal-50 px-6 sm:px-8 py-2.5 sm:py-3 rounded-full font-medium btn-float transition-all">
-                            Sign In
-                        </a>
-                    </div>
-                </div>
-                
-                <div class="lg:w-1/2 relative breathing">
-                    <img src="https://cdn-icons-png.flaticon.com/512/5996/5996830.png" alt="Peaceful meditation illustration" class="w-full max-w-xs sm:max-w-sm md:max-w-md mx-auto bounce">
-                </div>
+   
+    <main>
+        <div class="main-content mt-39">
+            <img src="../images/c.jpg" alt="Happy " class="w-full h-96 object-cover rounded-2xl mb-8 shadow-xl border-4 border-white transform ">
+            <h2 class="text-4xl font-bold mb-6 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">Find Your Calm & Ignite Your Joy</h2>
+            <p class="mb-8 text-xl text-gray-700 leading-relaxed">Revolutionary tools and vibrant practices designed to help you reflect, breathe, and grow with excitement and energy.</p>
+            <div class="flex flex-wrap justify-center">
+                <a href="register.html" class="btn">Start Your Adventure</a>
+                <a href="login.html" class="btn btn-secondary">Spark Your Journey</a>
             </div>
         </div>
     </main>
 
-    <!-- Features -->
-    <section class="py-12 sm:py-16 px-4 sm:px-6 bg-teal-50 wave">
-        <div class="max-w-5xl mx-auto">
-            <h3 class="text-xl sm:text-2xl font-bold text-center text-teal-800 mb-8 sm:mb-12">Simple Practices, <span class="text-teal-400">Big Changes</span></h3>
-            
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
-                <div class="feature-card text-center p-4 sm:p-6 rounded-xl bg-teal-100">
-                    <div class="w-16 sm:w-20 h-16 sm:h-20 mx-auto mb-3 sm:mb-4">
-                        <img src="https://cdn-icons-png.flaticon.com/512/2936/2936886.png" alt="Breathing exercise" class="w-full h-full object-contain">
-                    </div>
-                    <h4 class="font-bold text-base sm:text-lg mb-2 text-teal-700">Breathe With Me</h4>
-                    <p class="text-teal-700 text-sm sm:text-base">Guided breathing exercises to calm your mind</p>
-                </div>
-                
-                <div class="feature-card text-center p-4 sm:p-6 rounded-xl bg-teal-100">
-                    <div class="w-16 sm:w-20 h-16 sm:h-20 mx-auto mb-3 sm:mb-4">
-                        <img src="https://cdn-icons-png.flaticon.com/512/4100/4100477.png" alt="Journal" class="w-full h-full object-contain">
-                    </div>
-                    <h4 class="font-bold text-base sm:text-lg mb-2 text-teal-800">Gentle Journal</h4>
-                    <p class="text-teal-700 text-sm sm:text-base">Reflective prompts without pressure</p>
-                </div>
-                
-                <div class="feature-card text-center p-4 sm:p-6 rounded-xl bg-teal-100">
-                    <div class="w-16 sm:w-20 h-16 sm:h-20 mx-auto mb-3 sm:mb-4">
-                        <img src="https://cdn-icons-png.flaticon.com/512/4100/4100525.png" alt="Progress" class="w-full h-full object-contain">
-                    </div>
-                    <h4 class="font-bold text-base sm:text-lg mb-2 text-teal-800">Tiny Wins</h4>
-                    <p class="text-teal-700 text-sm sm:text-base">Celebrate small steps forward</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
+   
     <!-- Footer -->
-    <footer class="py-6 sm:py-8 px-4 sm:px-6 bg-teal-100 text-center">
-        <p class="text-teal-700 text-sm sm:text-base">Made with ❤️ for your wellbeing</p>
+    <footer>
+       
+        <p class="flex items-center justify-center text-center">Made with 💖 and explosions of joy for your wellbeing</p>
     </footer>
 
-    <!-- Floating Cloud -->
-    <div class="fixed bottom-0 left-0 w-full pointer-events-none">
-        <svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg" class="w-full h-auto">
-            <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" fill="#34d399"></path>
-            <path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5" fill="#34d399"></path>
-            <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="#4fd1c5"></path>
-        </svg>
-    </div>
-
+    
+    <style>
+        .cursor-follower {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            opacity: 0.7;
+            transition: width 0.3s, height 0.3s, opacity 0.3s;
+            z-index: 9999;
+            animation: pulse 1s infinite alternate;
+        }
+        
+        
+    </style>
 </body>
 </html>

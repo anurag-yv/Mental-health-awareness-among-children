@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Child Mental Health Support Groups - India</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+        }
+        
+        .support-card {
+            transition: all 0.3s ease;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+        
+        .support-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+        }
+        
+        .floating {
+            animation: floating 6s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .highlight-box {
+            background: linear-gradient(90deg, rgba(124, 58, 237, 0.1) 0%, rgba(99, 102, 241, 0.1) 100%);
+            border-left: 4px solid #7c3aed;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Floating decorative elements -->
+    <div class="fixed top-20 left-10 w-16 h-16 rounded-full bg-indigo-100 opacity-30 floating"></div>
+    <div class="fixed bottom-40 right-12 w-24 h-24 rounded-full bg-purple-100 opacity-30 floating" style="animation-delay: 2s;"></div>
+    
+    <!-- Main Container -->
+    <div class="container mx-auto px-4 py-12 relative z-10">
+        <!-- Header Section -->
+        <div class="text-center mb-16 animate__animated animate__fadeIn">
+            <div class="inline-block mb-6">
+                <svg class="w-20 h-20 mx-auto text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                </svg>
+            </div>
+            <h1 class="text-4xl font-bold text-indigo-800 mb-4">Support Groups for Children</h1>
+            <h2 class="text-2xl font-semibold text-purple-600 mb-6">Find Safe Spaces to Share & Heal</h2>
+            <p class="text-lg text-gray-600 max-w-3xl mx-auto">You are not alone. Connect with others who understand.</p>
+        </div>
+        
+        <!-- Search & Filter Bar -->
+        <div class="bg-white rounded-xl shadow-md p-6 mb-12 animate__animated animate__fadeIn">
+            <div class="flex flex-col md:flex-row gap-4">
+                <input type="text" id="searchInput" placeholder="Search by city or topic..." class="flex-grow px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-300 focus:border-indigo-400">
+                <select id="ageFilter" class="px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-300">
+                    <option value="">All Age Groups</option>
+                    <option value="6-12">6-12 years</option>
+                    <option value="13-18">13-18 years</option>
+                </select>
+                <button id="findGroupsBtn" class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-lg font-medium transition-colors">
+                    Find Groups
+                </button>
+            </div>
+        </div>
+        
+        <!-- Support Groups Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16" id="supportGroupsContainer">
+            <!-- Groups will be loaded here via JS -->
+        </div>
+        
+        <!-- How It Works Section -->
+        <div class="bg-white rounded-2xl shadow-xl p-8 mb-16 animate__animated animate__fadeIn">
+            <h2 class="text-3xl font-bold text-indigo-800 mb-8 text-center">How Support Groups Help</h2>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="text-center p-6 rounded-xl hover:bg-indigo-50 transition-colors">
+                    <div class="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Safe Sharing</h3>
+                    <p class="text-gray-600">Express feelings without judgment in a confidential space.</p>
+                </div>
+                
+                <div class="text-center p-6 rounded-xl hover:bg-indigo-50 transition-colors">
+                    <div class="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Peer Support</h3>
+                    <p class="text-gray-600">Connect with others facing similar challenges.</p>
+                </div>
+                
+                <div class="text-center p-6 rounded-xl hover:bg-indigo-50 transition-colors">
+                    <div class="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Coping Skills</h3>
+                    <p class="text-gray-600">Learn strategies to manage emotions and stress.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Online Support Section -->
+        <div class="highlight-box rounded-2xl p-8 mb-16 animate__animated animate__fadeIn">
+            <h2 class="text-3xl font-bold text-indigo-800 mb-6">Online Support Communities</h2>
+            <p class="text-gray-700 mb-6">Can't find an in-person group? These online communities offer safe spaces for children and teens:</p>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <a href="https://www.togetherwecan.in" target="_blank" class="bg-white p-6 rounded-lg shadow-sm hover:shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1">
+                    <div class="flex items-start mb-4">
+                        <img src="https://cdn-icons-png.flaticon.com/512/1828/1828888.png" alt="TogetherWeCan Logo" class="w-10 h-10 rounded-full mr-4" onerror="this.src='https://via.placeholder.com/40'">
+                        <div>
+                            <h3 class="font-bold text-lg text-gray-800">TogetherWeCan (Teen Support)</h3>
+                            <p class="text-indigo-600 text-sm">togetherwecan.in</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4">Moderated forum for teens (13-19) to discuss mental health anonymously.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-xs">Ages 13-19</span>
+                        <span class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-xs">24/7 Access</span>
+                        <span class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-xs">Moderated</span>
+                    </div>
+                </a>
+                
+                <a href="https://www.childlineindia.org" target="_blank" class="bg-white p-6 rounded-lg shadow-sm hover:shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1">
+                    <div class="flex items-start mb-4">
+                        <img src="https://cdn-icons-png.flaticon.com/512/1828/1828970.png" alt="Childline Chat Logo" class="w-10 h-10 rounded-full mr-4" onerror="this.src='https://via.placeholder.com/40'">
+                        <div>
+                            <h3 class="font-bold text-lg text-gray-800">Childline Chat</h3>
+                            <p class="text-indigo-600 text-sm">childlineindia.org</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4">Live chat with counselors for children facing emotional distress.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-xs">Ages 6-18</span>
+                        <span class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-xs">Counselors</span>
+                        <span class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-xs">Multilingual</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        
+        <!-- FAQ Section -->
+        <div class="bg-white rounded-2xl shadow-xl p-8 animate__animated animate__fadeIn">
+            <h2 class="text-3xl font-bold text-indigo-800 mb-8 text-center">Frequently Asked Questions</h2>
+            
+            <div class="space-y-4">
+                <div class="border-b border-gray-200 pb-4">
+                    <button class="faq-toggle flex justify-between items-center w-full text-left font-medium text-gray-800 hover:text-indigo-600">
+                        <span>Are these support groups free to join?</span>
+                        <svg class="w-5 h-5 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-content mt-2 text-gray-600 hidden">
+                        Most support groups listed here are free or low-cost. Some may require registration with NGOs or mental health organizations. Always check with the group facilitator for any requirements.
+                    </div>
+                </div>
+                
+                <div class="border-b border-gray-200 pb-4">
+                    <button class="faq-toggle flex justify-between items-center w-full text-left font-medium text-gray-800 hover:text-indigo-600">
+                        <span>Can parents attend with their child?</span>
+                        <svg class="w-5 h-5 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-content mt-2 text-gray-600 hidden">
+                        It depends on the group. Some are for children only, while others welcome parents. There are also separate support groups for parents of children with mental health challenges.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="bg-indigo-900 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p class="mb-4">Remember: Asking for help is a sign of strength, not weakness.</p>
+            
+            <p class="text-indigo-300 text-sm">© 2025 MindHorizon</p>
+        </div>
+    </footer>
+
+    <script>
+        $(document).ready(function() {
+            // Support groups data for India
+            const supportGroups = [
+                {
+                    name: "Rainbow Kids Circle",
+                    organization: "The Mind Foundation",
+                    location: "Delhi, Mumbai, Bangalore (Online)",
+                    ageGroup: "8-12 years",
+                    focus: "Anxiety, School Stress",
+                    frequency: "Every Saturday (4-5:30 PM)",
+                    contact: "contact@mindfoundation.org | 011-41234567",
+                    badge: "Hybrid",
+                    tags: ["Anxiety", "School Stress", "Hybrid"]
+                },
+                {
+                    name: "Teen Warriors",
+                    organization: "Young Minds India",
+                    location: "Chennai, Hyderabad, Pune",
+                    ageGroup: "13-17 years",
+                    focus: "Depression, Self-Esteem",
+                    frequency: "Twice a month (Sundays)",
+                    contact: "support@youngmindsindia.org | 044-56789012",
+                    badge: "In-Person",
+                    tags: ["Depression", "Self-Esteem", "In-Person"]
+                },
+                {
+                    name: "Little Champs Support",
+                    organization: "Child Mental Health Initiative",
+                    location: "Kolkata, Online",
+                    ageGroup: "6-10 years (with parents)",
+                    focus: "ADHD, Behavioral Issues",
+                    frequency: "Weekly (Wednesday 5 PM)",
+                    contact: "cmhi.kolkata@gmail.com | 033-23456789",
+                    badge: "Parent-Child",
+                    tags: ["ADHD", "Behavioral Issues", "Parent-Child"]
+                },
+                {
+                    name: "Brave Hearts",
+                    organization: "Snehi Foundation",
+                    location: "Delhi NCR",
+                    ageGroup: "10-15 years",
+                    focus: "Trauma, Bullying",
+                    frequency: "Every Friday (4:30-6 PM)",
+                    contact: "bravehearts@snehi.org | 011-26566272",
+                    badge: "Counselor-Led",
+                    tags: ["Trauma", "Bullying", "Counselor-Led"]
+                },
+                {
+                    name: "Sunshine Friends",
+                    organization: "AASRA",
+                    location: "Mumbai, Online",
+                    ageGroup: "12-16 years",
+                    focus: "Suicide Prevention",
+                    frequency: "Monthly (1st Sunday)",
+                    contact: "aasrahelpline@yahoo.com | 9820466726",
+                    badge: "Peer Support",
+                    tags: ["Suicide Prevention", "Peer Support"]
+                },
+                {
+                    name: "Express Yourself",
+                    organization: "Art Therapy India",
+                    location: "Bangalore, Kochi",
+                    ageGroup: "7-14 years",
+                    focus: "Creative Expression",
+                    frequency: "Weekly (Saturday 10 AM)",
+                    contact: "arttherapyindia@gmail.com | 080-41234567",
+                    badge: "Creative Arts",
+                    tags: ["Creative Expression", "Art Therapy"]
+                }
+            ];
+
+            // Debounce function to limit rapid searches
+            function debounce(func, wait) {
+                let timeout;
+                return function executedFunction(...args) {
+                    const later = () => {
+                        clearTimeout(timeout);
+                        func(...args);
+                    };
+                    clearTimeout(timeout);
+                    timeout = setTimeout(later, wait);
+                };
+            }
+
+            // Function to generate support group cards
+            function renderGroups(groups) {
+                const container = $('#supportGroupsContainer');
+                container.empty();
+
+                if (groups.length === 0) {
+                    container.append(`
+                        <p class='text-center col-span-3 text-gray-500 animate__animated animate__fadeIn'>
+                            No groups found. Try adjusting your search or filter criteria.
+                        </p>
+                    `);
+                    return;
+                }
+
+                groups.forEach((group, index) => {
+                    container.append(`
+                        <div class="support-card animate__animated animate__fadeInUp" style="animation-delay: ${index * 0.1}s">
+                            <div class="p-6">
+                                <div class="flex justify-between items-start mb-4">
+                                    <h3 class="text-xl font-bold text-gray-800">${group.name}</h3>
+                                    <span class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-xs">${group.badge}</span>
+                                </div>
+                                
+                                <p class="text-sm text-indigo-600 mb-3">by ${group.organization}</p>
+                                
+                                <div class="space-y-3 text-sm text-gray-600 mb-5">
+                                    <div class="flex items-start">
+                                        <svg class="w-4 h-4 mt-1 mr-2 flex-shrink-0 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                        </svg>
+                                        <span>${group.location}</span>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <svg class="w-4 h-4 mt-1 mr-2 flex-shrink-0 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                                        </svg>
+                                        <span>Ages: ${group.ageGroup}</span>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <svg class="w-4 h-4 mt-1 mr-2 flex-shrink-0 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                                        </svg>
+                                        <span>Focus: ${group.focus}</span>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <svg class="w-4 h-4 mt-1 mr-2 flex-shrink-0 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                        </svg>
+                                        <span>${group.frequency}</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="bg-gray-50 p-4 rounded-lg">
+                                    <p class="text-sm font-medium text-gray-700 mb-1">Contact:</p>
+                                    <p class="text-sm text-gray-600">${group.contact}</p>
+                                </div>
+                            </div>
+                        </div>
+                    `);
+                });
+            }
+
+            // Function to filter groups
+            function filterGroups() {
+                const searchTerm = $('#searchInput').val().toLowerCase();
+                const ageFilter = $('#ageFilter').val();
+
+                let filteredGroups = supportGroups;
+
+                // Apply search filter
+                if (searchTerm) {
+                    filteredGroups = filteredGroups.filter(group => 
+                        group.location.toLowerCase().includes(searchTerm) ||
+                        group.focus.toLowerCase().includes(searchTerm) ||
+                        group.name.toLowerCase().includes(searchTerm) ||
+                        group.tags.some(tag => tag.toLowerCase().includes(searchTerm))
+                    );
+                }
+
+                // Apply age group filter
+                if (ageFilter) {
+                    filteredGroups = filteredGroups.filter(group => {
+                        const ageText = group.ageGroup.toLowerCase();
+                        return ageText.includes(ageFilter.toLowerCase());
+                    });
+                }
+
+                renderGroups(filteredGroups);
+            }
+
+            // Initialize with all groups
+            renderGroups(supportGroups);
+
+            // Event listeners
+            const debouncedFilter = debounce(filterGroups, 300);
+            
+            $('#searchInput').on('input', debouncedFilter);
+            $('#ageFilter').on('change', filterGroups);
+            $('#findGroupsBtn').on('click', filterGroups);
+
+            // FAQ toggle functionality
+            $('.faq-toggle').click(function() {
+                $(this).find('svg').toggleClass('rotate-180');
+                $(this).siblings('.faq-content').slideToggle();
+            });
+
+            // Animate elements when they come into view
+            $(window).scroll(function() {
+                $('.support-card').each(function() {
+                    const cardTop = $(this).offset().top;
+                    const windowBottom = $(window).scrollTop() + $(window).height();
+                    
+                    if (cardTop < windowBottom) {
+                        $(this).addClass('animate__animated animate__fadeInUp');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
